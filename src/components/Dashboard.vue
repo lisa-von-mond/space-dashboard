@@ -1,6 +1,11 @@
 <script setup>
 
 import { ref, reactive } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+
+import SideBar from './SideBar.vue';
+
+const smallerDevice = useMediaQuery('(max-width: 768px)')
 
 defineProps({
   name: String,
@@ -27,15 +32,14 @@ const count = ref(0)
       </section>
     </div>
     <nav class="dashboard__navigation">
-      <button class="dashboard__menu-button">
-        <span></span>
+      <button 
+        v-if="smallerDevice"
+        class="dashboard__menu-button"
+        @click="state.sidebarOpen = !state.sidebarOpen">
+        <span>x</span>
         <span></span>
       </button>
-      <div 
-        class="sidebar"
-        v-if="state.sidebarOpen">
-          sidebar content will go here
-      </div>
+      <SideBar v-if="!smallerDevice || state.sidebarOpen"/>
     </nav>
   </div>
 
@@ -97,6 +101,7 @@ const count = ref(0)
       right: 1.4rem;
       top: 1.4rem;
       @include standard-shadow(0.3rem, 0.3rem, 4rem);
+      z-index: 200;
     }
   }
 }
