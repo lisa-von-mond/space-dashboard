@@ -2,7 +2,6 @@
 
 import { ref, reactive } from 'vue'
 
-
 defineProps({
   name: String,
 })
@@ -28,7 +27,10 @@ const count = ref(0)
       </section>
     </div>
     <nav class="dashboard__navigation">
-      <button>open / close</button>
+      <button class="dashboard__menu-button">
+        <span></span>
+        <span></span>
+      </button>
       <div 
         class="sidebar"
         v-if="state.sidebarOpen">
@@ -52,6 +54,7 @@ const count = ref(0)
 <style lang='scss' scoped>
 
 @import '../vars.scss';
+@import '../mixins.scss';
 
 .dashboard {
   width: 100%;
@@ -59,19 +62,15 @@ const count = ref(0)
   margin: auto;
 
   &__content {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: $standard-gap;
+    width: 100%;
+    @include flex(column, space-between, space-between, $standard-gap)
   }
 
   &__header {
     height: 4rem;
     background: $color-secondary;
     padding: 0.6rem 1.2rem;
-    display: flex;
-    gap: 0.6rem;
-    align-items: center;
+    @include flex(row, flex-start, center, 1.6rem);
     border-radius: 0.8rem 0.8rem 0 0;
   }
 
@@ -88,24 +87,31 @@ const count = ref(0)
       margin: 1rem auto;
     }
   }
+
   &__navigation {
-    button {
+    .dashboard__menu-button {
       position: fixed;
-      right: 1.6rem;
-      top: 1.8rem;
+      height: 3.2rem;
+      width: 3.2rem;
+      background: $color-secondary--dark;
+      right: 1.4rem;
+      top: 1.4rem;
+      @include standard-shadow(0.3rem, 0.3rem, 4rem);
     }
   }
 }
+
 .logo {
   height: 2rem;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em $color-primary);
+  @include standard-shadow(0, 0, 2rem);
 }
 
 .disclaimer {
   color: $text-color--light;
 }
+
 </style>

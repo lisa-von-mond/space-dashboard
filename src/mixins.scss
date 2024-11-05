@@ -1,0 +1,15 @@
+@import './vars.scss';
+
+@mixin standard-shadow($top, $left, $blur) {
+    filter: drop-shadow($top $left $blur $color-primary--dark);
+}
+
+@mixin flex($direction, $justify: center, $align: center, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+
+
