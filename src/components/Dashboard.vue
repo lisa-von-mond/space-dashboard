@@ -40,7 +40,9 @@ const count = ref(0)
           <span></span>
           <span></span>
       </button>
-      <SideBar v-if="!smallerDevice || state.sidebarOpen"/>
+      <Transition name="opacity">
+        <SideBar v-if="!smallerDevice || state.sidebarOpen"/>
+      </Transition>
     </nav>
   </div>
 
@@ -61,6 +63,8 @@ const count = ref(0)
 @import '../vars.scss';
 @import '../mixins.scss';
 
+/* general dashboard sizing and layout: */
+
 .dashboard {
   width: 100%;
   min-height: calc(100vh - ($standard-gap * 2));
@@ -80,6 +84,8 @@ const count = ref(0)
     width: 80vw;
     height: 80vh;
   }
+
+  /* left / permanently visible part of dashboard: */
 
   &__content {
     @include flex(column, space-between, space-between, $standard-gap);
@@ -117,6 +123,8 @@ const count = ref(0)
     }
   }
 
+  /* navigation: */
+
   &__navigation {
     position: absolute;
 
@@ -143,7 +151,7 @@ const count = ref(0)
         left: 0.5rem;
         transform-origin: 50% 50%;
         transform: rotate(0deg);
-        transition: all 0.3s;
+        transition: all 0.6s;
 
         &:nth-child(1) {
           top: 1rem;
@@ -157,11 +165,11 @@ const count = ref(0)
       &--open {
         span:nth-child(1) {
           top: 1.45rem;
-          transform: rotate(-45deg);
+          transform: rotate(-135deg);
         }
         span:nth-child(2) {
           bottom: 1.45rem;
-          transform: rotate(45deg);
+          transform: rotate(135deg);
         }
 
       }
@@ -180,6 +188,18 @@ const count = ref(0)
 
 .disclaimer {
   color: $text-color--light;
+}
+
+/* transitions: */
+
+.opacity-enter-from, .opacity-leave-to {
+  opacity: 0;
+}
+.opacity-leave-from, .opacity-enter-to {
+  opacity: 1;
+}
+.opacity-enter-active, .opacity-leave-active‚ {
+  transition: opacity 0.6s;
 }
 
 </style>
