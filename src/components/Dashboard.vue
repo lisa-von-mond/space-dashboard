@@ -35,9 +35,10 @@ const count = ref(0)
       <button 
         v-if="smallerDevice"
         class="dashboard__menu-button"
-        @click="state.sidebarOpen = !state.sidebarOpen">
-        <span>x</span>
-        <span></span>
+        @click="state.sidebarOpen = !state.sidebarOpen"
+        :class="{'dashboard__menu-button--open': state.sidebarOpen}">
+          <span></span>
+          <span></span>
       </button>
       <SideBar v-if="!smallerDevice || state.sidebarOpen"/>
     </nav>
@@ -132,6 +133,38 @@ const count = ref(0)
       top: 1.4rem;
       @include standard-shadow(0.3rem, 0.3rem, 4rem);
       z-index: 200;
+
+      span {
+        width: 2.1rem;
+        height: 0.3rem;
+        background: $color-light;
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        transform-origin: 50% 50%;
+        transform: rotate(0deg);
+        transition: all 0.3s;
+
+        &:nth-child(1) {
+          top: 1rem;
+        }
+
+        &:nth-child(2) {
+          bottom: 1rem;
+        }
+      }
+
+      &--open {
+        span:nth-child(1) {
+          top: 1.45rem;
+          transform: rotate(-45deg);
+        }
+        span:nth-child(2) {
+          bottom: 1.45rem;
+          transform: rotate(45deg);
+        }
+
+      }
     }
   }
 }
