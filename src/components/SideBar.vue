@@ -2,20 +2,32 @@
 
 import { ref, reactive } from 'vue'
 
-defineProps({
-
-})
+defineProps({})
 
 const state = reactive({
 
 })
+
+const menuData = [
+  {name: "my account", submenu: false},
+  {name: "my profile", submenu: ["view", "edit"]},
+  {name: "settings", submenu: ["widgets", "alarms", "notifications"] },
+  {name: "discover", submenu: ["about", "contribute"]},
+  {name: "help", submenu: false},
+]
 
 </script>
 
 <template>
 
   <div id="sidebar" class="sidebar">
-    menu content will go here
+    <ul>
+      <li v-for="el in menuData">
+        <p v-if="el.submenu === false">{{ el.name }}</p>
+        <button v-else>{{ el.name }}</button>
+
+      </li>
+    </ul>
   </div>
 
 </template>
@@ -41,6 +53,38 @@ const state = reactive({
     height: 100%;
     width: 14rem;
     border-radius: 0 0.8rem 0.8rem 0;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    @include flex(column, center, center);
+
+    @media (min-width: $screen-small) {
+      @include flex(column, flex-start, flex-start);
+    }
+
+  }
+
+  li {
+    height: 3rem;
+
+    p, button {
+      margin: 0;
+      @include flex(row, center, center);
+      height: 100%;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    button {
+      padding-left: 0;
+
+    }
+
+    button:after {
+      content: '▾';
+    }
   }
 }
 
