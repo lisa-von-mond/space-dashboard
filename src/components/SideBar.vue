@@ -35,6 +35,13 @@ const state = reactive({
   border-radius: 0.8rem;
   z-index: 100;
   @include flex(column, center, center);
+
+  @media (min-width: $screen-small) {
+    position: relative;
+    height: 100%;
+    width: 14rem;
+    border-radius: 0 0.8rem 0.8rem 0;
+  }
 }
 
 </style>

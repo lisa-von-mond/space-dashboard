@@ -64,6 +64,9 @@ const count = ref(0)
   width: 100%;
   min-height: 100vh;
   margin: auto;
+  @media (min-width: $screen-small) {
+    @include flex(row, center, space-between, $standard-gap)
+  }
 
   &__content {
     width: 100%;
@@ -76,12 +79,20 @@ const count = ref(0)
     padding: 0.6rem 1.2rem;
     @include flex(row, flex-start, center, 1.6rem);
     border-radius: 0.8rem 0.8rem 0 0;
+
+    @media (min-width: $screen-small) {
+      border-radius: 0.8rem 0 0 0;
+    }
   }
 
   &__widget-area {
     background: $color-secondary;
     padding: 1rem;
     border-radius: 0 0 0.8rem 0.8rem;
+
+    @media (min-width: $screen-small) {
+      border-radius: 0 0 0.8rem 0‚;
+    }
 
     .widget-dummy {
       height: 18rem;
