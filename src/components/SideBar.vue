@@ -4,10 +4,6 @@ import { ref, reactive } from 'vue'
 
 defineProps({})
 
-const state = reactive({
-
-})
-
 const menuData = [
   {name: "my account", submenu: false},
   {name: "my profile", submenu: ["view", "edit"]},
@@ -16,19 +12,35 @@ const menuData = [
   {name: "help", submenu: false},
 ]
 
+const state = reactive({
+  submenu: null,
+})
+
+function handleMenu(el) {
+  if (state.submenu === el) {
+    state.submenu = null
+  } else {
+    state.submenu = el
+  }
+}
+
 </script>
 
 <template>
 
-  <div id="sidebar" class="sidebar">
-    <ul>
-      <li v-for="el in menuData">
-        <p v-if="el.submenu === false">{{ el.name }}</p>
-        <button v-else>{{ el.name }}</button>
-
-      </li>
-    </ul>
-  </div>
+<div id="sidebar" class="sidebar">
+  <ul>
+    <li v-for="(el,idx) in menuData">
+      <a v-if="el.submenu === false">{{ el.name }}</a>
+      <div v-else>
+        <button @click="handleMenu(idx)">{{ el.name }}</button>
+        <div v-if="state.submenu === idx">
+          <p v-for="sub in el.submenu">{{ sub }}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
 
 </template>
 
@@ -63,13 +75,13 @@ const menuData = [
     @media (min-width: $screen-small) {
       @include flex(column, flex-start, flex-start);
     }
-
   }
 
   li {
-    height: 3rem;
 
-    p, button {
+    a, button {
+      color: $color-light;
+      min-height: 2rem;
       margin: 0;
       @include flex(row, center, center);
       height: 100%;
@@ -79,7 +91,6 @@ const menuData = [
 
     button {
       padding-left: 0;
-
     }
 
     button:after {
