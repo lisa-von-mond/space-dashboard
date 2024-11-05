@@ -33,9 +33,16 @@ function handleMenu(el) {
     <li v-for="(el,idx) in menuData">
       <a v-if="el.submenu === false">{{ el.name }}</a>
       <div v-else>
-        <button @click="handleMenu(idx)">{{ el.name }}</button>
-        <div v-if="state.submenu === idx">
-          <p v-for="sub in el.submenu">{{ sub }}</p>
+        <button 
+          class="sidebar__button"
+          @click="handleMenu(idx)"
+          :class="{'sidebar__button--open': state.submenu === idx}">
+            {{ el.name }}
+        </button>
+        <div 
+          class="sidebar__submenu"
+          v-if="state.submenu === idx">
+            <a v-for="sub in el.submenu">{{ sub }}</a>
         </div>
       </div>
     </li>
@@ -61,15 +68,19 @@ function handleMenu(el) {
   @include flex(column, center, center);
 
   @media (min-width: $screen-small) {
+    @include flex(column, flex-start, flex-start);
+    padding-top: 3rem;
+    padding-left: 3rem;
     position: relative;
     height: 100%;
-    width: 14rem;
+    width: 12rem;
     border-radius: 0 0.8rem 0.8rem 0;
   }
 
   ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
     @include flex(column, center, center);
 
     @media (min-width: $screen-small) {
@@ -87,15 +98,46 @@ function handleMenu(el) {
       height: 100%;
       text-transform: uppercase;
       font-weight: 600;
+      cursor: pointer;
     }
 
-    button {
+    .sidebar__button {
       padding-left: 0;
-    }
 
-    button:after {
-      content: '▾';
+      &:after {
+        content: '▾';
+        margin-left: 0.5rem;
+        font-size: 1.6rem;
+        transition: transform 0.3s;
+        transform: translateY(-0.1rem);
+      }
+
+      &--open:after {
+        transform: rotate(180deg) translateY(-0.1rem);
+      }
     }
+  }
+
+  &__submenu {
+    @include flex(column, center, center);
+    @media (min-width: $screen-small) {
+      @include flex(column, flex-start, flex-start);
+      padding-left: 1rem;
+    }    
+  }
+
+  /* hover effects: */
+
+  button, a {
+    transition: all 0.3s;
+    &:hover {
+      font-weight: 800;
+    }
+  }
+  
+  a:hover {
+    transform: translateX(0.2rem);
+    font-weight: 800;
   }
 }
 
