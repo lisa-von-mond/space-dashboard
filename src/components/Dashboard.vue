@@ -1,5 +1,7 @@
 <script setup>
+
 import { ref, reactive } from 'vue'
+
 
 defineProps({
   name: String,
@@ -47,6 +49,8 @@ const count = ref(0)
 
 <style lang='scss' scoped>
 
+@import '../vars.scss';
+
 .dashboard {
   width: 100%;
   height: 100%;
@@ -74,6 +78,6 @@ const count = ref(0)
   filter: drop-shadow(0 0 2em #42b883aa);
 }
 .disclaimer {
-  color: #888;
+  color: $text-color--light;
 }
 </style>
