@@ -8,7 +8,7 @@ defineProps({
 })
 
 const state = reactive({
-  sidebarOpen: true
+  sidebarOpen: false,
 })
 
 const count = ref(0)
@@ -22,7 +22,9 @@ const count = ref(0)
         <h1>Hi {{ name }}</h1>
       </section>
       <section class="dashboard__widget-area">
-        widgets will go here
+        <div class="widget-dummy"></div>
+        <div class="widget-dummy"></div>
+        <div class="widget-dummy"></div>
       </section>
     </div>
     <nav class="dashboard__navigation">
@@ -43,7 +45,7 @@ const count = ref(0)
     </p>
   </div--->
 
-  <p class="disclaimer">Disclaimer and info text style</p>
+  <!---p class="disclaimer">Disclaimer and info text style</p--->
 
 </template>
 
@@ -53,30 +55,56 @@ const count = ref(0)
 
 .dashboard {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  margin: auto;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: $standard-gap;
+  }
 
   &__header {
-    background: pink;
+    height: 4rem;
+    background: $color-secondary;
+    padding: 0.6rem 1.2rem;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    border-radius: 0.8rem 0.8rem 0 0;
   }
+
   &__widget-area {
-    background: skyblue;
+    background: $color-secondary;
+    padding: 1rem;
+    border-radius: 0 0 0.8rem 0.8rem;
+
+    .widget-dummy {
+      height: 18rem;
+      width: 18rem;
+      border: 0.2rem solid $color-primary;
+      border-radius: 0.8rem;
+      margin: 1rem auto;
+    }
   }
   &__navigation {
-    background: gold;
+    button {
+      position: fixed;
+      right: 1.6rem;
+      top: 1.8rem;
+    }
   }
 }
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 2rem;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em $color-primary);
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 .disclaimer {
   color: $text-color--light;
 }

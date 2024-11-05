@@ -10,4 +10,8 @@ import Dashboard from './components/Dashboard.vue'
 
 <style scoped>
 
+main {
+
+}
+
 </style>
