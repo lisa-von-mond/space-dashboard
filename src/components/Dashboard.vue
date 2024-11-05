@@ -1,8 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 defineProps({
   name: String,
+})
+
+const state = reactive({
+  sidebarOpen: true
 })
 
 const count = ref(0)
@@ -10,13 +14,23 @@ const count = ref(0)
 
 <template>
   <div id="dashboard" class="dashboard">
-    <section class="dashboard__header">
-      <img src="../assets/icon_planet.svg" class="logo" alt="Planet logo" />
-      <h1>Hi {{ name }}</h1>
-    </section>
-    <section class="dashboard__widgets">
-      widgets will go here
-    </section>
+    <div class="dashboard__content">
+      <section class="dashboard__header">
+        <img src="../assets/icon_planet.svg" class="logo" alt="Planet logo" />
+        <h1>Hi {{ name }}</h1>
+      </section>
+      <section class="dashboard__widget-area">
+        widgets will go here
+      </section>
+    </div>
+    <nav class="dashboard__navigation">
+      <button>open / close</button>
+      <div 
+        class="sidebar"
+        v-if="state.sidebarOpen">
+          sidebar content will go here
+      </div>
+    </nav>
   </div>
 
   <!---div class="card">
@@ -27,22 +41,25 @@ const count = ref(0)
     </p>
   </div--->
 
-  <!---p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p--->
+  <p class="disclaimer">Disclaimer and info text style</p>
 
 </template>
 
-<style scoped>
+<style lang='scss' scoped>
 
 .dashboard {
   width: 100%;
-  height: 100%
+  height: 100%;
+
+  &__header {
+    background: pink;
+  }
+  &__widget-area {
+    background: skyblue;
+  }
+  &__navigation {
+    background: gold;
+  }
 }
 .logo {
   height: 6em;
@@ -56,7 +73,7 @@ const count = ref(0)
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
-.read-the-docs {
+.disclaimer {
   color: #888;
 }
 </style>
