@@ -78,6 +78,7 @@ const count = ref(0)
     height: 90vh;
     overflow: hidden;
     min-height: auto;
+    border-radius: 0.8rem;
   }
 
   @media (min-width: $screen-medium) {
@@ -97,21 +98,21 @@ const count = ref(0)
     background: $color-secondary;
     padding: 0.6rem 1.4rem;
     @include flex(row, flex-start, center, 1.3rem);
-    border-radius: 0.8rem 0.8rem 0 0;
+    // border-radius: 0.8rem 0.8rem 0 0;
 
     @media (min-width: $screen-small) {
-      border-radius: 0.8rem 0 0 0;
+      // border-radius: 0.8rem 0 0 0;
     }
   }
 
   &__widget-area {
     background: $color-secondary;
     padding: 1rem;
-    border-radius: 0 0 0.8rem 0.8rem;
+    // border-radius: 0 0 0.8rem 0.8rem;
     flex-grow: 1;
 
     @media (min-width: $screen-small) {
-      border-radius: 0 0 0 0.8rem;
+      // border-radius: 0 0 0 0.8rem;
     }
 
     .widget-dummy {

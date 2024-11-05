@@ -68,7 +68,7 @@ function handleMenu(el) {
   @include flex(column, center, center);
 
   @media (min-width: $screen-small) {
-    @include flex(column, flex-start, flex-start);
+    @include flex(column, space-between, flex-start);
     padding-top: 3rem;
     padding-left: 3rem;
     position: relative;
@@ -88,33 +88,30 @@ function handleMenu(el) {
     }
   }
 
-  li {
+  a, button {
+    color: $color-light;
+    min-height: 2rem;
+    margin: 0;
+    @include flex(row, center, center);
+    height: 100%;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+  }
 
-    a, button {
-      color: $color-light;
-      min-height: 2rem;
-      margin: 0;
-      @include flex(row, center, center);
-      height: 100%;
-      text-transform: uppercase;
-      font-weight: 600;
-      cursor: pointer;
+  .sidebar__button {
+    padding-left: 0;
+
+    &:after {
+      content: '▾';
+      margin-left: 0.5rem;
+      font-size: 1.6rem;
+      transition: transform 0.3s;
+      transform: translateY(-0.1rem);
     }
 
-    .sidebar__button {
-      padding-left: 0;
-
-      &:after {
-        content: '▾';
-        margin-left: 0.5rem;
-        font-size: 1.6rem;
-        transition: transform 0.3s;
-        transform: translateY(-0.1rem);
-      }
-
-      &--open:after {
-        transform: rotate(180deg) translateY(-0.1rem);
-      }
+    &--open:after {
+      transform: rotate(180deg) translateY(-0.1rem);
     }
   }
 
