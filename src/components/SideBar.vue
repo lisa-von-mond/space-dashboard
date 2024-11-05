@@ -31,8 +31,8 @@ const state = reactive({
   top: 0;
   right: 0;
   bottom: 0;
-  background: gold;
-  border-radius: 0.8rem;
+  background: $color-secondary--dark;
+  color: $color-light;
   z-index: 100;
   @include flex(column, center, center);
 

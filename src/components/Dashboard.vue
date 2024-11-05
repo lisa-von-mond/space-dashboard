@@ -26,9 +26,9 @@ const count = ref(0)
         <h1>Hi {{ name }}</h1>
       </section>
       <section class="dashboard__widget-area">
+        <!---div class="widget-dummy"></div>
         <div class="widget-dummy"></div>
-        <div class="widget-dummy"></div>
-        <div class="widget-dummy"></div>
+        <div class="widget-dummy"></div--->
       </section>
     </div>
     <nav class="dashboard__navigation">
@@ -62,22 +62,34 @@ const count = ref(0)
 
 .dashboard {
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - ($standard-gap * 2));
   margin: auto;
+  @include flex(column, space-between, space-between, $standard-gap);
+
   @media (min-width: $screen-small) {
-    @include flex(row, center, space-between, $standard-gap)
+    @include flex(row, center, space-between, $standard-gap);
+    max-width: 1080px;
+    width: 90vw;
+    height: 90vh;
+    overflow: hidden;
+    min-height: auto;
+  }
+
+  @media (min-width: $screen-medium) {
+    width: 80vw;
+    height: 80vh;
   }
 
   &__content {
-    width: 100%;
-    @include flex(column, space-between, space-between, $standard-gap)
+    @include flex(column, space-between, space-between, $standard-gap);
+    flex-grow: 1;
   }
 
   &__header {
     height: 4rem;
     background: $color-secondary;
-    padding: 0.6rem 1.2rem;
-    @include flex(row, flex-start, center, 1.6rem);
+    padding: 0.6rem 1.4rem;
+    @include flex(row, flex-start, center, 1.3rem);
     border-radius: 0.8rem 0.8rem 0 0;
 
     @media (min-width: $screen-small) {
@@ -89,9 +101,10 @@ const count = ref(0)
     background: $color-secondary;
     padding: 1rem;
     border-radius: 0 0 0.8rem 0.8rem;
+    flex-grow: 1;
 
     @media (min-width: $screen-small) {
-      border-radius: 0 0 0.8rem 0‚;
+      border-radius: 0 0 0 0.8rem;
     }
 
     .widget-dummy {
@@ -104,6 +117,12 @@ const count = ref(0)
   }
 
   &__navigation {
+    position: absolute;
+
+    @media (min-width: $screen-small) {
+      position: relative;
+    }
+
     .dashboard__menu-button {
       position: fixed;
       height: 3.2rem;
