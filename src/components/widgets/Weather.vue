@@ -64,40 +64,41 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 
 <template>
 
-  <div id="weather" class="weather" v-if="state.weatherData !== null">
-    <h3>Weather Berlin</h3>
-    <div class="weather__content">
+<div id="weather" class="weather" v-if="state.weatherData !== null">
+  <h3>Weather Berlin</h3>
+  <div class="weather__content">
 
-      <div class="weather__section weather__section-warmth">
-        <span class="hover-area">
-          <p>{{ state.weatherData.temp_c }}°</p>
-          <div class="tooltip">real temperature</div>
-        </span>
-        <hr>
-        <span class="hover-area">
-          <p> {{ state.weatherData.feelslike_c }}°</p>
-          <div class="tooltip">feels-like temperature</div>
-        </span>
-      </div>
-
-      <div class="weather__section weather__section-condition">
-        <span class="hover-area">
-          <img :src="state.weatherData.condition.icon"/>
-          <div class="tooltip">{{ state.weatherData.condition.text }}</div>
-        </span>
-      </div>
-
-      <div class="weather__section weather__section-wind">
-        <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
-        <hr>
-        <span class="hover-area">
-          <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>
-          <div class="tooltip">{{ windDirection.direction }}</div>
-        </span>
-      </div>
-
+    <div class="weather__section weather__section-warmth">
+      <span class="hover-area">
+        <p>{{ state.weatherData.temp_c }}°</p>
+        <div class="tooltip">real temperature</div>
+      </span>
+      <hr>
+      <span class="hover-area">
+        <p> {{ state.weatherData.feelslike_c }}°</p>
+        <div class="tooltip">feels-like temperature</div>
+      </span>
     </div>
+
+    <div class="weather__section weather__section-condition">
+      <span class="hover-area">
+        <img :src="state.weatherData.condition.icon"/>
+        <div class="tooltip">{{ state.weatherData.condition.text }}</div>
+      </span>
+    </div>
+
+    <div class="weather__section weather__section-wind">
+      <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
+      <hr>
+      <span class="hover-area">
+        <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>
+        <div class="tooltip">{{ windDirection.direction }}</div>
+      </span>
+    </div>
+
   </div>
+</div>
+<div class="no-data" v-else>waiting for data...</div>
 
 </template>
 

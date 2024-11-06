@@ -127,6 +127,17 @@ button {
   }
 }
 
+/* skeleton overlay if no data available */
+
+.no-data {
+  @include gradient-nice($color-secondary, $text-color--dark, 45deg);
+  @include flex(row, center, center);
+  border: none !important;
+  font-size: 1.2rem;
+  letter-spacing: 0.3rem;
+  font-weight: 600;
+}
+
 
 /*
 button:focus,

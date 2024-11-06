@@ -72,6 +72,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 
     </div>
   </div>
+  <div class="no-data" v-else>waiting for data...</div>
 
 </template>
 
