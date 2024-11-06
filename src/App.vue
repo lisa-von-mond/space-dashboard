@@ -11,7 +11,7 @@ import Dashboard from './components/Dashboard.vue'
 <style scoped>
 
 main {
-
+  margin: auto;
 }
 
 </style>
