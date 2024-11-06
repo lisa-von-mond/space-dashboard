@@ -51,7 +51,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       // console.log(responseData)
 
       let weatherData = {}
-      // push only relevant weather data into data array for widget component
+      // push only relevant weather data into data object for widget component
         params.forEach(el => weatherData[el] = responseData[el])
         state.weatherData = weatherData
         // console.log(weatherData)
@@ -114,14 +114,22 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   }
 
   &__content {
-    @include flex(row, space-between, center, 0.4rem);
+    @include flex(row, center, center, 1rem);
     flex-grow: 1;
+    @media (min-width: $screen-small) {
+      gap: 2rem
+    }
   }
 
   &__section-warmth, &__section-wind {
     p {
       font-size: 1.4rem;
       margin: 0;
+      white-space: nowrap;
+      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+        font-size: 1.2rem;
+      }
+
     }
     .smaller-text {
       font-size: 0.6rem;

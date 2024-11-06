@@ -132,7 +132,7 @@ const state = reactive({
     /* grid */
 
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
     grid-template-columns: 1fr;
     grid-template-areas: 
     "widget-first"

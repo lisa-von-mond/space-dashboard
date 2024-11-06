@@ -26,7 +26,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   .then(response => {
     console.log(response.data)
     if(response) {
-        // push only air quality data into data array for widget component
+        // push only air quality data into data object
         state.data = response.data.current.air_quality
       }
     })
@@ -42,35 +42,32 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
     <div class="airquality__content">
 
       <div class="airquality__section airquality__section-co">
-        <p> {{ state.data.co.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
-        <hr>
-        <span class="hover-area">
-          <p>CO</p>
+        <span class="airquality__textelement hover-area">
+          <p class="airquality__keyprop">CO:</p>
           <div class="tooltip">carbon dioxide</div>
         </span>
+        <p class="airquality__textelement"> {{ state.data.co.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
       </div>
 
       <div class="airquality__section airquality__section-co">
-        <span class="hover-area">
-          <p class="airquality__index" :style="{'color': `${indexWarning[0]}`}">
+        <span class="airquality__textelement hover-area">
+          <p class="airquality__keyprop">DAQI:</p>
+          <div class="tooltip">daily air quality index</div>
+        </span>
+        <span class="airquality__textelement hover-area">
+          <p class="airquality__ac-index" :style="{'color': `${indexWarning[0]}`}">
             {{ state.data['gb-defra-index'] }}
           </p>
           <div class="tooltip">{{ indexWarning[1] }}</div>
         </span>
-        <hr>
-        <span class="hover-area">
-          <p>DAQI</p>
-          <div class="tooltip">daily air quality index</div>
-        </span>
       </div>
 
       <div class="airquality__section airquality__section-no">
-        <p> {{ state.data.no2.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
-        <hr>
-        <span class="hover-area">
-          <p>NO2</p>
+        <span class="airquality__textelement hover-area">
+          <p class="airquality__keyprop">NO2:</p>
           <div class="tooltip">nitrogen dioxide</div>
         </span>
+        <p class="airquality__textelement"> {{ state.data.no2.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
       </div>
 
     </div>
@@ -91,24 +88,26 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   }
 
   &__content {
-    @include flex(row, space-between, center, 0.4rem);
+    @include flex(column, center, center, 0.2rem);
     flex-grow: 1;
   }
 
   &__section {
+    @include flex(row, baseline, center, 1rem);
     p {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin: 0;
+      white-space: nowrap;
+      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+        font-size: 1.2rem;
+      }
     }
     .smaller-text {
       font-size: 0.6rem;
     }
-    hr {
-      border-top: 1.6px solid $color-light;
-    }
   }
 
-  &__index {
+  &__ac-index {
     font-weight: 800;
   }
 
