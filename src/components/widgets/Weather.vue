@@ -4,13 +4,13 @@ import { computed, reactive, onMounted } from 'vue'
 import axios from 'axios'
 
 const state = reactive({
-  weatherData: null
+  data: null
 })
 
 /* computed prop to get angle for full word of wind direction (e.g. 'northeast' 
 and angle for the arrow, corresponding to wind direction) */
 const windDirection = computed(() => {
-  let windDirection = state.weatherData.wind_dir
+  let windDirection = state.data.wind_dir
   const windDirectionToArray = windDirection.split("")
 
   const translator = [
@@ -42,19 +42,16 @@ onMounted(() => {
 // fetch data from weather api
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
   .then(response => {
-    /// console.log(response.data)
     if(response) {
 
       // parameters needed for weather widget:
       const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
       let responseData = response.data.current
-      // console.log(responseData)
 
       let weatherData = {}
       // push only relevant weather data into data object for widget component
         params.forEach(el => weatherData[el] = responseData[el])
-        state.weatherData = weatherData
-        // console.log(weatherData)
+        state.data = weatherData
       }
     })
     .catch(error => {console.log(error)})
@@ -64,31 +61,31 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 
 <template>
 
-<div id="weather" class="weather" v-if="state.weatherData !== null">
+<div id="weather" class="weather" v-if="state.data !== null">
   <h3>Weather Berlin</h3>
   <div class="weather__content">
 
     <div class="weather__section weather__section-warmth">
       <span class="hover-area">
-        <p>{{ state.weatherData.temp_c }}°</p>
+        <p>{{ state.data.temp_c }}°</p>
         <div class="tooltip">real temperature</div>
       </span>
       <hr>
       <span class="hover-area">
-        <p> {{ state.weatherData.feelslike_c }}°</p>
+        <p> {{ state.data.feelslike_c }}°</p>
         <div class="tooltip">feels-like temperature</div>
       </span>
     </div>
 
     <div class="weather__section weather__section-condition">
       <span class="hover-area">
-        <img :src="state.weatherData.condition.icon"/>
-        <div class="tooltip">{{ state.weatherData.condition.text }}</div>
+        <img :src="state.data.condition.icon"/>
+        <div class="tooltip">{{ state.data.condition.text }}</div>
       </span>
     </div>
 
     <div class="weather__section weather__section-wind">
-      <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
+      <p>{{ state.data.wind_kph }} <span class="smaller-text">km/h</span></p>
       <hr>
       <span class="hover-area">
         <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>

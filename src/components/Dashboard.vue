@@ -1,11 +1,12 @@
 <script setup>
 
-import { ref, reactive, onMounted } from 'vue'
+import { reactive } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 
 import SideBar from './SideBar.vue';
 import Weather from './widgets/Weather.vue';
 import AirQuality from './widgets/AirQuality.vue';
+import Color from './widgets/Color.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
@@ -32,10 +33,8 @@ const state = reactive({
           class="dashboard__widget dashboard__widget-first" />
         <AirQuality 
           class="dashboard__widget dashboard__widget-second" />
-
-        <div class="dashboard__widget dashboard__widget-third">
-          <h3>third widget</h3>
-        </div>
+        <Color 
+          class="dashboard__widget dashboard__widget-third" />
         <div class="dashboard__widget dashboard__widget-fourth">
           <h3>fourth widget</h3>
         </div>
@@ -176,7 +175,6 @@ const state = reactive({
     }
     &-third {
       grid-area: widget-third;
-      color: goldenrod;
     }
     &-fourth {
       grid-area: widget-fourth;

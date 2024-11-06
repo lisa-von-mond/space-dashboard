@@ -24,7 +24,6 @@ onMounted(() => {
 // fetch data from weather api
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
   .then(response => {
-    console.log(response.data)
     if(response) {
         // push only air quality data into data object
         state.data = response.data.current.air_quality
