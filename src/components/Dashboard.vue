@@ -1,7 +1,8 @@
 <script setup>
 
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
+import axios from 'axios'
 
 import SideBar from './SideBar.vue';
 
@@ -14,6 +15,20 @@ const props = defineProps({
 const state = reactive({
   sidebarOpen: false,
 })
+
+onMounted(() => {
+  // axios.get('https://api.openweathermap.org/data/3.0/onecall?lat=10&lon=20&appid=83a2d250ccd16711b1dcbbf37c4ec633')
+  // .then(response => {console.log(response.data)})
+  // .catch(error => {console.log(error)})
+
+  axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
+  .then(response => {console.log(response.data)})
+  .catch(error => {console.log(error)})
+
+ 
+})
+
+
 
 // const count = ref(0)
 
