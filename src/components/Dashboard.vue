@@ -127,7 +127,7 @@ const state = reactive({
     "widget-third"
     "widget-fourth";
 
-    @media (min-width: $screen-xsmall) and (max-width: $screen-small-max) {
+    @media (min-width: $screen-xsmall) and (max-width: $screen-small-max), (min-width: $screen-medium) {
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 200px 1fr;
       grid-template-areas: 
@@ -135,13 +135,13 @@ const state = reactive({
       "widget-third widget-fourth";
     }
 
-    @media (min-width: $screen-medium) {
-      grid-template-rows: 1fr 1fr;
-      grid-template-columns: 200px 1fr;
-      grid-template-areas: 
-      "widget-first widget-second"
-      "widget-third widget-fourth";
-    }
+    // @media (min-width: $screen-medium) {
+    //   grid-template-rows: 1fr 1fr;
+    //   grid-template-columns: 200px 1fr;‚
+    //   grid-template-areas: 
+    //   "widget-first widget-second"
+    //   "widget-third widget-fourth";
+    // }
   }
 
   &__widget {
