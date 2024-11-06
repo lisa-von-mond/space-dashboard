@@ -39,17 +39,20 @@ function handleMenu(el) {
           :class="{'sidebar__button--open': state.submenu === idx}">
             {{ el.name }}
         </button>
-        <div 
-          class="sidebar__submenu"
-          v-if="state.submenu === idx">
-            <a v-for="sub in el.submenu">{{ sub }}</a>
-        </div>
+
+          <div 
+            class="sidebar__submenu"
+            :style="{'height': state.submenu === idx ? `${el.submenu.length * 2}rem` : '0rem'}">
+              <a v-for="sub in el.submenu">{{ sub }}</a>
+          </div>
+
       </div>
     </li>
   </ul>
 </div>
 
 </template>
+
 
 <style lang='scss' scoped>
 
@@ -74,7 +77,7 @@ function handleMenu(el) {
     position: relative;
     height: 100%;
     width: 12rem;
-    border-radius: 0 0.8rem 0.8rem 0;
+    // border-radius: 0 0.8rem 0.8rem 0;
   }
 
   ul {
@@ -116,11 +119,15 @@ function handleMenu(el) {
   }
 
   &__submenu {
+    
     @include flex(column, center, center);
     @media (min-width: $screen-small) {
       @include flex(column, flex-start, flex-start);
       padding-left: 1rem;
-    }    
+    }
+
+    overflow: hidden;
+    transition: height 0.5s;
   }
 
   /* hover effects: */
@@ -136,6 +143,21 @@ function handleMenu(el) {
     transform: translateX(0.2rem);
     font-weight: 800;
   }
+}
+
+/* transition */
+
+.height-enter-from, .height-leave-to {
+  max-height: 0;
+}
+
+.height-leave-from, .height-enter-to {
+  max-height: auto;
+}
+
+.height-enter-active, .height-leave-active {
+  transition: max-height 0.5s;
+
 }
 
 </style>
