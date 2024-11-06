@@ -256,7 +256,7 @@ const state = reactive({
 .opacity-leave-from, .opacity-enter-to {
   opacity: 1;
 }
-.opacity-enter-active, .opacity-leave-active‚ {
+.opacity-enter-active, .opacity-leave-active {
   transition: opacity 0.6s;
 }
 
