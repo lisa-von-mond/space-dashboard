@@ -79,10 +79,14 @@ const state = reactive({
 .dashboard {
   @include flex(column, space-between, space-between, $standard-gap);
   width: 100%;
-  min-height: calc(100vh - ($standard-gap * 2));
+  min-height: 100vh;
   margin: auto;
   overflow: hidden;
-  border-radius: 0.8rem;
+
+  @media (min-width: $screen-xsmall) {
+    min-height: calc(100vh - ($standard-gap * 2));
+    border-radius: 0.8rem;
+  }
 
   @media (min-width: $screen-small) {
     @include flex(row, center, space-between, $standard-gap);
@@ -111,12 +115,14 @@ const state = reactive({
     background: $color-secondary;
   }
 
-  /* grid */
+  /* widget-area */
 
   &__widget-area {
     background: $color-secondary;
-    padding: 1rem;
+    padding: $standard-gap;;
     flex-grow: 1;
+
+    /* grid */
 
     display: grid;
     grid-template-rows: 1fr 300px 1fr 1fr;;
@@ -126,6 +132,14 @@ const state = reactive({
     "widget-second"
     "widget-third"
     "widget-fourth";
+    column-gap: $standard-gap;
+    row-gap: $standard-gap;
+
+    @media (min-width: $screen-small) {
+      column-gap: 1rem;
+      row-gap: 1rem;
+      padding: 1rem;
+    }
 
     @media (min-width: $screen-xsmall) and (max-width: $screen-small-max), (min-width: $screen-medium) {
       grid-template-rows: 1fr 1fr;
@@ -134,14 +148,6 @@ const state = reactive({
       "widget-first widget-second"
       "widget-third widget-fourth";
     }
-
-    // @media (min-width: $screen-medium) {
-    //   grid-template-rows: 1fr 1fr;
-    //   grid-template-columns: 200px 1fr;‚
-    //   grid-template-areas: 
-    //   "widget-first widget-second"
-    //   "widget-third widget-fourth";
-    // }
   }
 
   &__widget {

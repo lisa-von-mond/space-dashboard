@@ -28,8 +28,13 @@ body {
 
 #app {
   width: 100%;
-  padding: $standard-gap;
+
   text-align: center;
+  padding: 0;
+
+  @media (min-width: $screen-xsmall) {
+    padding: $standard-gap;
+  }
 }
 
 /* links */
