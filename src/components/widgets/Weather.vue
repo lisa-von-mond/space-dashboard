@@ -69,7 +69,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 
   <div id="weather" class="weather" v-if="state.weatherData !== null">
     <h3>Wetter Berlin</h3>
-      <div class="weather__content">
+    <div class="weather__content">
 
       <div class="weather__section weather__section-warmth">
         <span class="hover-area">
@@ -99,7 +99,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
         </span>
       </div>
 
-      </div>
+    </div>
   </div>
 
 </template>
@@ -112,13 +112,13 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 .weather {
   @include flex(column, space-between, space-between, 1rem);
 
+  h3 {
+      margin: 0;
+  }
+
   &__content {
     @include flex(row, space-between, center, 0.4rem);
     flex-grow: 1;
-  }
-
-  h3 {
-    margin: 0;
   }
 
   &__section-warmth, &__section-wind {
@@ -141,7 +141,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   }
 }
 
-/* hover areas and tooltips - may be moved to global leven */
+/* hover areas and tooltips - may be moved to global level */
 
 .hover-area {
   position: relative;

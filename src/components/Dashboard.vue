@@ -30,13 +30,13 @@ const state = reactive({
         <Weather 
           class="dashboard__widget dashboard__widget-first" />
         <div class="dashboard__widget dashboard__widget-second">
-          second widget
+          <h3>second widget</h3>
         </div>
         <div class="dashboard__widget dashboard__widget-third">
-          third widget
+          <h3>third widget</h3>
         </div>
         <div class="dashboard__widget dashboard__widget-fourth">
-          fourth widget
+          <h3>fourth widget</h3>
         </div>
       </section>
     </div>
