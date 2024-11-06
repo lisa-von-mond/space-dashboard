@@ -1,8 +1,6 @@
 <script setup>
 
-import { ref, reactive } from 'vue'
-
-defineProps({})
+import { reactive } from 'vue'
 
 const menuData = [
   {name: "my account", submenu: false},
@@ -31,21 +29,21 @@ function handleMenu(el) {
 <div id="sidebar" class="sidebar">
   <ul>
     <li v-for="(el,idx) in menuData">
+      <!--- menu elements without submenu: -->
       <a v-if="el.submenu === false">{{ el.name }}</a>
+      <!--- menu elements with submenu: -->
       <div v-else>
         <button 
-          class="sidebar__button"
+          class="sidebar__menu-button"
           @click="handleMenu(idx)"
-          :class="{'sidebar__button--open': state.submenu === idx}">
+          :class="{'sidebar__menu-button--open': state.submenu === idx}">
             {{ el.name }}
         </button>
-
-          <div 
-            class="sidebar__submenu"
-            :style="{'height': state.submenu === idx ? `${el.submenu.length * 2}rem` : '0rem'}">
+        <div 
+          class="sidebar__submenu"
+          :style="{'height': state.submenu === idx ? `${el.submenu.length * 2}rem` : '0rem'}">
               <a v-for="sub in el.submenu">{{ sub }}</a>
-          </div>
-
+        </div>
       </div>
     </li>
   </ul>
@@ -53,11 +51,12 @@ function handleMenu(el) {
 
 </template>
 
-
 <style lang='scss' scoped>
 
 @import '../vars.scss';
 @import '../mixins.scss';
+
+/* sidebar general layout */
 
 .sidebar {
   position: fixed;
@@ -65,26 +64,27 @@ function handleMenu(el) {
   top: 0;
   right: 0;
   bottom: 0;
+  @include flex(column, center, center);
   background: $color-secondary--dark;
   color: $color-light;
   z-index: 100;
-  @include flex(column, center, center);
 
   @media (min-width: $screen-small) {
-    @include flex(column, space-between, flex-start);
-    padding-top: 3rem;
-    padding-left: 3rem;
     position: relative;
+    @include flex(column, space-between, flex-start);
     height: 100%;
     width: 12rem;
-    // border-radius: 0 0.8rem 0.8rem 0;
+    padding-top: 3rem;
+    padding-left: 3rem;
   }
 
+  /* menu list and elements */
+
   ul {
-    list-style-type: none;
+    @include flex(column, center, center);
     padding: 0;
     margin: 0;
-    @include flex(column, center, center);
+    list-style-type: none;
 
     @media (min-width: $screen-small) {
       @include flex(column, flex-start, flex-start);
@@ -92,25 +92,39 @@ function handleMenu(el) {
   }
 
   a, button {
-    color: $color-light;
-    min-height: 2rem;
-    margin: 0;
     @include flex(row, center, center);
     height: 100%;
-    text-transform: uppercase;
+    min-height: 2rem;
+    margin: 0;
+    color: $color-light;
     font-weight: 600;
+    text-transform: uppercase;
     cursor: pointer;
+
+  /* hover effects: */
+
+    transition: all 0.3s;
+    &:hover {
+      font-weight: 800;
+    }
   }
 
-  .sidebar__button {
+  a:hover {
+    transform: translateX(0.2rem);
+    font-weight: 800;
+  }
+
+  /* */
+
+  .sidebar__menu-button {
     padding-left: 0;
 
     &:after {
       content: '▾';
       margin-left: 0.5rem;
       font-size: 1.6rem;
-      transition: transform 0.3s;
       transform: translateY(-0.1rem);
+      transition: transform 0.3s;
     }
 
     &--open:after {
@@ -118,46 +132,19 @@ function handleMenu(el) {
     }
   }
 
+  /* submenu */
+
   &__submenu {
     
     @include flex(column, center, center);
+    overflow: hidden;
+    transition: height 0.5s;
+
     @media (min-width: $screen-small) {
       @include flex(column, flex-start, flex-start);
       padding-left: 1rem;
     }
-
-    overflow: hidden;
-    transition: height 0.5s;
   }
-
-  /* hover effects: */
-
-  button, a {
-    transition: all 0.3s;
-    &:hover {
-      font-weight: 800;
-    }
-  }
-  
-  a:hover {
-    transform: translateX(0.2rem);
-    font-weight: 800;
-  }
-}
-
-/* transition */
-
-.height-enter-from, .height-leave-to {
-  max-height: 0;
-}
-
-.height-leave-from, .height-enter-to {
-  max-height: auto;
-}
-
-.height-enter-active, .height-leave-active {
-  transition: max-height 0.5s;
-
 }
 
 </style>
