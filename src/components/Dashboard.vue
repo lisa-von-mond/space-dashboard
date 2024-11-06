@@ -69,6 +69,7 @@ const state = reactive({
   width: 100%;
   min-height: calc(100vh - ($standard-gap * 2));
   margin: auto;
+  overflow: hidden;
   border-radius: 0.8rem;
 
   @media (min-width: $screen-small) {
@@ -77,7 +78,6 @@ const state = reactive({
     width: 90vw;
     height: 90vh;
     min-height: auto;
-    overflow: hidden;
   }
 
   @media (min-width: $screen-medium) {
