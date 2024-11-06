@@ -1,9 +1,10 @@
 <script setup>
 
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 
 import SideBar from './SideBar.vue';
+import Weather from './widgets/Weather.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
@@ -26,17 +27,16 @@ const state = reactive({
         <h1>Today is the day!</h1>
       </section>
       <section class="dashboard__widget-area">
-        <div class="dashboard__widget dashboard__widget-first">
-          first widget
-        </div>
+        <Weather 
+          class="dashboard__widget dashboard__widget-first" />
         <div class="dashboard__widget dashboard__widget-second">
-          second widget
+          <h3>second widget</h3>
         </div>
         <div class="dashboard__widget dashboard__widget-third">
-          third widget
+          <h3>third widget</h3>
         </div>
         <div class="dashboard__widget dashboard__widget-fourth">
-          fourth widget
+          <h3>fourth widget</h3>
         </div>
       </section>
     </div>
@@ -131,8 +131,8 @@ const state = reactive({
     /* grid */
 
     display: grid;
-    grid-template-rows: 1fr 300px 1fr 1fr;;
-    grid-template-columns: 1fr ;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas: 
     "widget-first"
     "widget-second"
@@ -153,7 +153,7 @@ const state = reactive({
 
     @media (min-width: $screen-xsmall) and (max-width: $screen-small-max), (min-width: $screen-medium) {
       grid-template-rows: 1fr 1fr;
-      grid-template-columns: 200px 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-template-areas: 
       "widget-first widget-second"
       "widget-third widget-fourth";
@@ -169,7 +169,6 @@ const state = reactive({
 
     &-first {
       grid-area: widget-first;
-      color: hotpink !important;
     }
     &-second {
       grid-area: widget-second;
