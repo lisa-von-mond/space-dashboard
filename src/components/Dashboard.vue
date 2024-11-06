@@ -7,6 +7,7 @@ import SideBar from './SideBar.vue';
 import Weather from './widgets/Weather.vue';
 import AirQuality from './widgets/AirQuality.vue';
 import Color from './widgets/Color.vue';
+import Tomorrow from './widgets/Tomorrow.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
@@ -35,9 +36,8 @@ const state = reactive({
           class="dashboard__widget dashboard__widget-color" />
         <AirQuality 
           class="dashboard__widget dashboard__widget-air" />
-        <div class="dashboard__widget dashboard__widget-fourth">
-          <h3>fourth widget</h3>
-        </div>
+        <Tomorrow 
+          class="dashboard__widget dashboard__widget-tomorrow" />
       </section>
     </div>
     <nav class="dashboard__nav">
@@ -137,7 +137,7 @@ const state = reactive({
     "widget-weather"
     "widget-color"
     "widget-air"
-    "widget-fourth";
+    "widget-tomorrow";
     column-gap: $standard-gap;
     row-gap: $standard-gap;
 
@@ -156,7 +156,7 @@ const state = reactive({
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 
       "widget-weather widget-color"
-      "widget-air widget-fourth";
+      "widget-air widget-tomorrow";
     }
   }
 
@@ -164,7 +164,7 @@ const state = reactive({
     border: 0.1rem solid $color-light;
     border-radius: 0.8rem;
     font-size: 0.8rem;
-    padding: 2rem 1rem;
+    padding: 1.4rem 1rem;
     text-transform: uppercase;
 
     &-weather {
@@ -176,13 +176,13 @@ const state = reactive({
     &-air {
       grid-area: widget-air;
     }
-    &-fourth {
-      grid-area: widget-fourth;
-      color: cyan;
+    &-tomorrow {
+      grid-area: widget-tomorrow;
     }
 
     h3 {
       color: $color-accent;
+      margin: 0;
     }
   }
 

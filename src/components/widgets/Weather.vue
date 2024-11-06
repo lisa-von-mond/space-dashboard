@@ -136,10 +136,6 @@ onMounted(() => {
 .weather {
   @include flex(column, space-between, space-between, 1rem);
 
-  h3 {
-    margin: 0;
-  }
-
   &__content {
     @include flex(row, center, center, 1rem);
     flex-grow: 1;

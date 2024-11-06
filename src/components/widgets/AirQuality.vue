@@ -102,10 +102,6 @@ onMounted(() => {
 .airquality {
   @include flex(column, space-between, space-between, 1rem);
 
-  h3 {
-    margin: 0;
-  }
-
   &__content {
     @include flex(column, center, center, 0.2rem);
     flex-grow: 1;

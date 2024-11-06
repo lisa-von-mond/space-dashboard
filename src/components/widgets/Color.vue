@@ -52,10 +52,6 @@ const getColor = computed(() => {
 .color {
   @include flex(column, space-between, space-between, 1rem);
 
-  h3 {
-    margin: 0;
-  }
-
   &__content {
     flex-grow: 1;
     @include flex(row, center, center, 2rem);
