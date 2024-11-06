@@ -42,7 +42,7 @@ onMounted(() => {
 // fetch data from weather api
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
   .then(response => {
-    console.log(response.data)
+    /// console.log(response.data)
     if(response) {
 
       // parameters needed for weather widget:
@@ -51,13 +51,10 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       // console.log(responseData)
 
       let weatherData = {}
-      // push only relevant weather data into data array for widget component
+      // push only relevant weather data into data object for widget component
         params.forEach(el => weatherData[el] = responseData[el])
         state.weatherData = weatherData
-        console.log(weatherData)
-        // push only air quality data into data array for widget component
-        // state.airQualityData = responseData.air_quality
-
+        // console.log(weatherData)
       }
     })
     .catch(error => {console.log(error)})
@@ -67,40 +64,41 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 
 <template>
 
-  <div id="weather" class="weather" v-if="state.weatherData !== null">
-    <h3>Wetter Berlin</h3>
-    <div class="weather__content">
+<div id="weather" class="weather" v-if="state.weatherData !== null">
+  <h3>Weather Berlin</h3>
+  <div class="weather__content">
 
-      <div class="weather__section weather__section-warmth">
-        <span class="hover-area">
-          <p>{{ state.weatherData.temp_c }}°</p>
-          <div class="tooltip">real temperature</div>
-        </span>
-        <hr>
-        <span class="hover-area">
-          <p> {{ state.weatherData.feelslike_c }}°</p>
-          <div class="tooltip">feels-like temperature</div>
-        </span>
-      </div>
-
-      <div class="weather__section weather__section-condition">
-        <span class="hover-area">
-          <img :src="state.weatherData.condition.icon"/>
-          <div class="tooltip">{{ state.weatherData.condition.text }}</div>
-        </span>
-      </div>
-
-      <div class="weather__section weather__section-wind">
-        <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
-        <hr>
-        <span class="hover-area">
-          <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>
-          <div class="tooltip">{{ windDirection.direction }}</div>
-        </span>
-      </div>
-
+    <div class="weather__section weather__section-warmth">
+      <span class="hover-area">
+        <p>{{ state.weatherData.temp_c }}°</p>
+        <div class="tooltip">real temperature</div>
+      </span>
+      <hr>
+      <span class="hover-area">
+        <p> {{ state.weatherData.feelslike_c }}°</p>
+        <div class="tooltip">feels-like temperature</div>
+      </span>
     </div>
+
+    <div class="weather__section weather__section-condition">
+      <span class="hover-area">
+        <img :src="state.weatherData.condition.icon"/>
+        <div class="tooltip">{{ state.weatherData.condition.text }}</div>
+      </span>
+    </div>
+
+    <div class="weather__section weather__section-wind">
+      <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
+      <hr>
+      <span class="hover-area">
+        <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>
+        <div class="tooltip">{{ windDirection.direction }}</div>
+      </span>
+    </div>
+
   </div>
+</div>
+<div class="no-data" v-else>waiting for data...</div>
 
 </template>
 
@@ -113,18 +111,26 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   @include flex(column, space-between, space-between, 1rem);
 
   h3 {
-      margin: 0;
+    margin: 0;
   }
 
   &__content {
-    @include flex(row, space-between, center, 0.4rem);
+    @include flex(row, center, center, 1rem);
     flex-grow: 1;
+    @media (min-width: $screen-small) {
+      gap: 2rem
+    }
   }
 
   &__section-warmth, &__section-wind {
     p {
       font-size: 1.4rem;
       margin: 0;
+      white-space: nowrap;
+      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+        font-size: 1.2rem;
+      }
+
     }
     .smaller-text {
       font-size: 0.6rem;
@@ -138,36 +144,6 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
     img {
       height: 5rem;
     }
-  }
-}
-
-/* hover areas and tooltips - may be moved to global level */
-
-.hover-area {
-  position: relative;
-  display: block;
-
-.tooltip {
-  position: absolute;
-  right: 2rem;
-  top: -1rem;
-  transform: translate(100%, 0%);
-  padding: 0.3rem;
-  border-radius: 0.2rem;
-  background: $color-secondary--dark;
-  color: $color-accent;
-  font-size: 0.8rem;
-  text-transform: lowercase;
-  white-space: nowrap;
-  letter-spacing: 0.2rem;
-  z-index: 120;
-  cursor: default;
-  transition: opacity 0.3s;
-  opacity: 0;
-}
-
-&:hover .tooltip{
-    opacity: 1;
   }
 }
 

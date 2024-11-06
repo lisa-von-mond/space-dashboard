@@ -5,6 +5,7 @@ import { useMediaQuery } from '@vueuse/core'
 
 import SideBar from './SideBar.vue';
 import Weather from './widgets/Weather.vue';
+import AirQuality from './widgets/AirQuality.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
@@ -29,9 +30,9 @@ const state = reactive({
       <section class="dashboard__widget-area">
         <Weather 
           class="dashboard__widget dashboard__widget-first" />
-        <div class="dashboard__widget dashboard__widget-second">
-          <h3>second widget</h3>
-        </div>
+        <AirQuality 
+          class="dashboard__widget dashboard__widget-second" />
+
         <div class="dashboard__widget dashboard__widget-third">
           <h3>third widget</h3>
         </div>
@@ -131,7 +132,7 @@ const state = reactive({
     /* grid */
 
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
     grid-template-columns: 1fr;
     grid-template-areas: 
     "widget-first"
@@ -172,7 +173,6 @@ const state = reactive({
     }
     &-second {
       grid-area: widget-second;
-      color: skyblue;
     }
     &-third {
       grid-area: widget-third;
