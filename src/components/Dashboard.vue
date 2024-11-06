@@ -26,7 +26,18 @@ const state = reactive({
         <h1>Today is the day!</h1>
       </section>
       <section class="dashboard__widget-area">
-          widgets will go here
+        <div class="dashboard__widget dashboard__widget-first">
+          first widget
+        </div>
+        <div class="dashboard__widget dashboard__widget-second">
+          second widget
+        </div>
+        <div class="dashboard__widget dashboard__widget-third">
+          third widget
+        </div>
+        <div class="dashboard__widget dashboard__widget-fourth">
+          fourth widget
+        </div>
       </section>
     </div>
     <nav class="dashboard__nav">
@@ -100,14 +111,44 @@ const state = reactive({
     background: $color-secondary;
   }
 
+  /* grid */
+
   &__widget-area {
     background: $color-secondary;
     padding: 1rem;
     flex-grow: 1;
 
-    .dashboard__widget {
-      border: 0.2rem solid $color-primary;
-      border-radius: 0.8rem;
+    display: grid;
+    grid-template-rows: 1fr 300px 1fr 1fr;;
+    grid-template-columns: 1fr ;
+    grid-template-areas: 
+    "widget-first"
+    "widget-second"
+    "widget-third"
+    "widget-fourth";
+  }
+
+  &__widget {
+    border: 0.2rem solid $color-primary;
+    border-radius: 0.8rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+
+    &-first {
+      grid-area: widget-first;
+      color: hotpink !important;
+    }
+    &-second {
+      grid-area: widget-second;
+      color: skyblue;
+    }
+    &-third {
+      grid-area: widget-third;
+      color: goldenrod;
+    }
+    &-fourth {
+      grid-area: widget-fourth;
+      color: cyan;
     }
   }
 
