@@ -1,10 +1,27 @@
 <script setup>
 
-import { ref, reactive, onMounted } from 'vue'
+import { computed, reactive, onMounted } from 'vue'
 import axios from 'axios'
 
 const state = reactive({
   weatherData: null
+})
+
+const windDirection = computed(() => {
+  let windDirection = state.weatherData.wind_dir
+
+  const translator = [
+    {letter: 'N', word: 'north'},
+    {letter: 'S', word: 'south'},
+    {letter: 'W', word: 'west'},
+    {letter: 'E', word: 'east'}
+  ]
+
+  for (let i = 0; i < translator.length; i++) {
+    windDirection = windDirection.replace(translator[i].letter, translator[i].word);
+  }
+
+  return windDirection
 })
 
 onMounted(() => {
@@ -51,8 +68,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       <div class="weather__section weather__section-wind">
         <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
         <hr>
-        <p>↑</p>
-        <!---p>{{ state.weatherData.wind_dir }}</p--->
+        <p>↑ {{ windDirection }}</p>
       </div>
     </div>
   </div>
