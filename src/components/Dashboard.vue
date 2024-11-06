@@ -126,6 +126,22 @@ const state = reactive({
     "widget-second"
     "widget-third"
     "widget-fourth";
+
+    @media (min-width: $screen-xsmall) and (max-width: $screen-small-max) {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 200px 1fr;
+      grid-template-areas: 
+      "widget-first widget-second"
+      "widget-third widget-fourth";
+    }
+
+    @media (min-width: $screen-medium) {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 200px 1fr;
+      grid-template-areas: 
+      "widget-first widget-second"
+      "widget-third widget-fourth";
+    }
   }
 
   &__widget {
