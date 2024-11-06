@@ -1,6 +1,10 @@
 <script setup>
 
-import { reactive } from 'vue'
+import { onMounted, reactive, computed } from 'vue'
+
+const props = defineProps({
+  name: String,
+})
 
 const menuData = [
   {name: "my account", submenu: false},
@@ -22,11 +26,27 @@ function handleMenu(el) {
   }
 }
 
+const hello = computed(() => {
+  var thisDate = new Date()
+  var hour = thisDate.getHours()
+  if (hour < 6 || hour >= 23) {
+    return "Good Evening"
+  } else if (hour >= 6 && hour < 10) {
+    return "Good Morning"
+  } else if (hour >= 10 && hour < 18) {
+    return "Good Day"
+  } else {
+    return "Good Evening"
+  }
+})
+
 </script>
 
 <template>
 
 <div id="sidebar" class="sidebar">
+  <img src="../assets/icon_planet.svg" class="sidebar__logo" alt="Planet logo" />
+  <h2>{{ hello }}<br>{{ name }}</h2>
   <ul>
     <li v-for="(el,idx) in menuData">
       <!--- menu elements without submenu: -->
@@ -64,20 +84,36 @@ function handleMenu(el) {
   top: 0;
   right: 0;
   bottom: 0;
-  @include flex(column, center, center);
+  @include flex(column, center, center, 1rem);
   background: $color-secondary--dark;
   color: $color-light;
   z-index: 100;
 
   @media (min-width: $screen-small) {
     position: relative;
-    @include flex(column, space-between, flex-start);
+    @include flex(column, flex-start, flex-start, 2rem);
     height: 100%;
     width: 12rem;
-    padding-top: 3rem;
-    padding-left: 3rem;
+    padding: 2rem 1rem;
   }
 
+  /* upper part of sidebar */
+
+  &__logo {
+    height: 2.4rem;
+    will-change: filter;
+    transition: filter 300ms;
+    &:hover {
+      @include standard-shadow(0, 0, 2rem);
+    }
+  }
+
+  h2 {
+    padding: 0;
+    @media (min-width: $screen-small) {
+      text-align: left;
+    }
+  }
   /* menu list and elements */
 
   ul {

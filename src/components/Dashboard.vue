@@ -7,7 +7,7 @@ import SideBar from './SideBar.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
-defineProps({
+const props = defineProps({
   name: String,
 })
 
@@ -23,8 +23,7 @@ const state = reactive({
   <div id="dashboard" class="dashboard">
     <div class="dashboard__content">
       <section class="dashboard__header">
-        <img src="../assets/icon_planet.svg" class="dashboard__logo" alt="Planet logo" />
-        <h1>Hi {{ name }}</h1>
+        <h1>Today is the day!</h1>
       </section>
       <section class="dashboard__widget-area">
           widgets will go here
@@ -40,7 +39,9 @@ const state = reactive({
           <span></span>
       </button>
       <Transition name="opacity">
-        <SideBar v-if="!smallerDevice || state.sidebarOpen"/>
+        <SideBar 
+          v-if="!smallerDevice || state.sidebarOpen"
+          :name="props.name"/>
       </Transition>
     </nav>
   </div>
@@ -161,15 +162,6 @@ const state = reactive({
           transform: rotate(135deg);
         }
       }
-    }
-  }
-
-  &__logo {
-    height: 2rem;
-    will-change: filter;
-    transition: filter 300ms;
-    &:hover {
-      @include standard-shadow(0, 0, 2rem);
     }
   }
 
