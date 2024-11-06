@@ -72,9 +72,15 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       <div class="weather__content">
 
       <div class="weather__section weather__section-warmth">
-        <p>{{ state.weatherData.temp_c }}°</p>
+        <span class="hover-area">
+          <p>{{ state.weatherData.temp_c }}°</p>
+          <div class="tooltip">real temperature</div>
+        </span>
         <hr>
-        <p> {{ state.weatherData.feelslike_c }}°</p>
+        <span class="hover-area">
+          <p> {{ state.weatherData.feelslike_c }}°</p>
+          <div class="tooltip">feels-like temperature</div>
+        </span>
       </div>
 
       <div class="weather__section weather__section-condition">
@@ -87,8 +93,10 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       <div class="weather__section weather__section-wind">
         <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
         <hr>
-        <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>
-        <!---p>{{ windDirection.direction }}</p--->
+        <span class="hover-area">
+          <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>
+          <div class="tooltip">{{ windDirection.direction }}</div>
+        </span>
       </div>
 
       </div>
@@ -143,14 +151,17 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   position: absolute;
   right: 2rem;
   top: -1rem;
-  transform: translate(100%, 100%);
-  padding: 0.2rem;
+  transform: translate(100%, 0%);
+  padding: 0.3rem;
+  border-radius: 0.2rem;
   background: $color-secondary--dark;
   color: $color-accent;
   font-size: 0.8rem;
   text-transform: lowercase;
   white-space: nowrap;
   letter-spacing: 0.2rem;
+  z-index: 120;
+  cursor: default;
   transition: opacity 0.3s;
   opacity: 0;
 }
