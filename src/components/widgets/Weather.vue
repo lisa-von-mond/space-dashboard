@@ -42,7 +42,7 @@ onMounted(() => {
 // fetch data from weather api
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
   .then(response => {
-    console.log(response.data)
+    /// console.log(response.data)
     if(response) {
 
       // parameters needed for weather widget:

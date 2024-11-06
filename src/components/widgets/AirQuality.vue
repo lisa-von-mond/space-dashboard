@@ -4,7 +4,7 @@ import { reactive, onMounted } from 'vue'
 import axios from 'axios'
 
 const state = reactive({
-  airQualityData: null
+  data: null
 })
 
 onMounted(() => {
@@ -14,7 +14,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
     console.log(response.data)
     if(response) {
         // push only air quality data into data array for widget component
-        state.airQualityData = response.data.current.air_quality
+        state.data = response.data.current.air_quality
       }
     })
     .catch(error => {console.log(error)})
@@ -24,15 +24,26 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 
 <template>
 
-  <div id="airquality" class="airquality" v-if="state.airQualityData !== null">
+  <div id="airquality" class="airquality" v-if="state.data !== null">
     <h3>Air Quality Berlin</h3>
     <div class="airquality__content">
 
-      <div class="airquality__section airquality__section-co2">
-         <p>TEXT</p>
+      <div class="airquality__section airquality__section-co">
+        <p> {{ state.data.co.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
         <hr>
-        <p>TEXT</p>
-        <!---p> {{ state.weatherData.feelslike_c }}°</p--->
+        <p>CO</p>
+      </div>
+
+      <div class="airquality__section airquality__section-co">
+        <p>{{ state.data['gb-defra-index'] }}</p>
+        <hr>
+        <p>DAQI</p>
+      </div>
+
+      <div class="airquality__section airquality__section-no">
+        <p> {{ state.data.no2.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
+        <hr>
+        <p>NO2</p>
       </div>
 
     </div>
@@ -57,7 +68,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
     flex-grow: 1;
   }
 
-  &__section-co2 {
+  &__section {
     p {
       font-size: 1.4rem;
       margin: 0;
