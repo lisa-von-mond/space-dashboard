@@ -5,6 +5,7 @@ import { useMediaQuery } from '@vueuse/core'
 import axios from 'axios'
 
 import SideBar from './SideBar.vue';
+import Weather from './widgets/Weather.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
@@ -14,21 +15,37 @@ const props = defineProps({
 
 const state = reactive({
   sidebarOpen: false,
+  weatherData: null,
+  airQualityData: null
 })
 
 onMounted(() => {
-  // axios.get('https://api.openweathermap.org/data/3.0/onecall?lat=10&lon=20&appid=83a2d250ccd16711b1dcbbf37c4ec633')
-  // .then(response => {console.log(response.data)})
-  // .catch(error => {console.log(error)})
+
+  // fetch data from weather api
 
   axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
-  .then(response => {console.log(response.data)})
+  .then(response => {
+    console.log(response.data)
+    if(response) {
+
+      // parameters needed for weather widget:
+      const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph']
+      let responseData = response.data.current
+      // console.log(responseData)
+
+      let weatherData = {}
+      // push only relevant weather data into data array for widget component
+      params.forEach(el => weatherData[el] = responseData[el])
+      state.weatherData = weatherData
+      console.log(weatherData)
+      // push only air quality data into data array for widget component
+      state.airQualityData = responseData.air_quality
+
+    }
+  })
   .catch(error => {console.log(error)})
 
- 
 })
-
-
 
 // const count = ref(0)
 
@@ -41,9 +58,9 @@ onMounted(() => {
         <h1>Today is the day!</h1>
       </section>
       <section class="dashboard__widget-area">
-        <div class="dashboard__widget dashboard__widget-first">
-          first widget
-        </div>
+        <Weather 
+          class="dashboard__widget dashboard__widget-first"
+          :data="state.weatherData" />
         <div class="dashboard__widget dashboard__widget-second">
           second widget
         </div>
@@ -146,8 +163,8 @@ onMounted(() => {
     /* grid */
 
     display: grid;
-    grid-template-rows: 1fr 300px 1fr 1fr;;
-    grid-template-columns: 1fr ;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas: 
     "widget-first"
     "widget-second"
