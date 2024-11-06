@@ -89,7 +89,7 @@ const hello = computed(() => {
   right: 0;
   bottom: 0;
   @include flex(column, center, center, 1rem);
-  background: $color-secondary;
+  @include gradient-nice($color-secondary--light, $color-secondary, 45deg);
   color: $color-light;
   z-index: 100;
 

@@ -112,7 +112,7 @@ const state = reactive({
     @include flex(row, flex-start, center, 1.3rem);
     height: 4rem;
     padding: 0.6rem 1rem;
-    background: $color-secondary--dark;
+    @include gradient-nice($color-secondary, $color-secondary--dark, 135deg);
     @media (min-width: $screen-xsmall) {
       padding: 0.6rem 1.6rem;
     }
@@ -124,7 +124,7 @@ const state = reactive({
   /* widget-area */
 
   &__widget-area {
-    background: $color-secondary--dark;
+    @include gradient-nice($color-secondary, $color-secondary--dark, 45deg);
     padding: $standard-gap;;
     flex-grow: 1;
 
@@ -200,8 +200,7 @@ const state = reactive({
       width: 3.2rem;
       right: 0.8rem;
       top: 1rem;
-      //@include standard-shadow(0.3rem, 0.3rem, 4rem);
-      background: $color-secondary--dark;
+      @include gradient-nice($color-secondary--dark, $color-secondary--darker, 40deg);
       z-index: 200;
 
       @media (min-width: $screen-xsmall) {
