@@ -1,17 +1,20 @@
 /* color variables */
 
-$text-color: #2e2e2e;
+$text-color--dark: #2e2e2e;
 $text-color--light: #888;
 $color-primary: #1230AE;
 $color-primary--dark: #061242;
-$color-secondary: #C68FE6;
-$color-secondary--dark: #6C48C5;
+$color-secondary--light: #C68FE6;
+$color-secondary: #6C48C5;
+$color-secondary--dark: #1e1140;
+$color-secondary--darker: #170d30;
 $color-accent: #b7ff00;
 $color-light: #e9e9e9;
 
 /* breakpoint variables */
 
 $screen-xsmall: 480px;
+$screen-small-max: 767px;
 $screen-small: 768px;
 $screen-medium: 1024px;
 $screen-large: 1200px;
@@ -19,6 +22,14 @@ $screen-large: 1200px;
 /* layout variables */
 
 $standard-gap: 0.4rem;
+
+
+
+
+
+
+
+
 
 
 

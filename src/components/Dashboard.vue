@@ -7,7 +7,7 @@ import SideBar from './SideBar.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
-defineProps({
+const props = defineProps({
   name: String,
 })
 
@@ -23,11 +23,21 @@ const state = reactive({
   <div id="dashboard" class="dashboard">
     <div class="dashboard__content">
       <section class="dashboard__header">
-        <img src="../assets/icon_planet.svg" class="dashboard__logo" alt="Planet logo" />
-        <h1>Hi {{ name }}</h1>
+        <h1>Today is the day!</h1>
       </section>
       <section class="dashboard__widget-area">
-          widgets will go here
+        <div class="dashboard__widget dashboard__widget-first">
+          first widget
+        </div>
+        <div class="dashboard__widget dashboard__widget-second">
+          second widget
+        </div>
+        <div class="dashboard__widget dashboard__widget-third">
+          third widget
+        </div>
+        <div class="dashboard__widget dashboard__widget-fourth">
+          fourth widget
+        </div>
       </section>
     </div>
     <nav class="dashboard__nav">
@@ -40,7 +50,9 @@ const state = reactive({
           <span></span>
       </button>
       <Transition name="opacity">
-        <SideBar v-if="!smallerDevice || state.sidebarOpen"/>
+        <SideBar 
+          v-if="!smallerDevice || state.sidebarOpen"
+          :name="props.name"/>
       </Transition>
     </nav>
   </div>
@@ -67,10 +79,14 @@ const state = reactive({
 .dashboard {
   @include flex(column, space-between, space-between, $standard-gap);
   width: 100%;
-  min-height: calc(100vh - ($standard-gap * 2));
+  min-height: 100vh;
   margin: auto;
   overflow: hidden;
-  border-radius: 0.8rem;
+
+  @media (min-width: $screen-xsmall) {
+    min-height: calc(100vh - ($standard-gap * 2));
+    border-radius: 0.8rem;
+  }
 
   @media (min-width: $screen-small) {
     @include flex(row, center, space-between, $standard-gap);
@@ -95,18 +111,77 @@ const state = reactive({
   &__header {
     @include flex(row, flex-start, center, 1.3rem);
     height: 4rem;
-    padding: 0.6rem 1.4rem;
-    background: $color-secondary;
+    padding: 0.6rem 1rem;
+    @include gradient-nice($color-secondary, $color-secondary--dark, 135deg);
+    @media (min-width: $screen-xsmall) {
+      padding: 0.6rem 1.6rem;
+    }
+    @media (min-width: $screen-small) {
+      padding: 0.6rem 2.2rem;
+    }
   }
 
+  /* widget-area */
+
   &__widget-area {
-    background: $color-secondary;
-    padding: 1rem;
+    @include gradient-nice($color-secondary, $color-secondary--dark, 45deg);
+    padding: $standard-gap;;
     flex-grow: 1;
 
-    .dashboard__widget {
-      border: 0.2rem solid $color-primary;
-      border-radius: 0.8rem;
+    /* grid */
+
+    display: grid;
+    grid-template-rows: 1fr 300px 1fr 1fr;;
+    grid-template-columns: 1fr ;
+    grid-template-areas: 
+    "widget-first"
+    "widget-second"
+    "widget-third"
+    "widget-fourth";
+    column-gap: $standard-gap;
+    row-gap: $standard-gap;
+
+    @media (min-width: $screen-xsmall) {
+      column-gap: 1rem;
+      row-gap: 1rem;
+      padding: 1rem;
+    }
+
+    @media (min-width: $screen-small) {
+      padding: 2rem;
+    }
+
+    @media (min-width: $screen-xsmall) and (max-width: $screen-small-max), (min-width: $screen-medium) {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 200px 1fr;
+      grid-template-areas: 
+      "widget-first widget-second"
+      "widget-third widget-fourth";
+    }
+  }
+
+  &__widget {
+    border: 0.1rem solid $color-light;
+    border-radius: 0.8rem;
+    font-size: 0.8rem;
+    padding: 1rem;
+    text-transform: uppercase;
+
+    &-first {
+      grid-area: widget-first;
+      color: hotpink !important;
+    }
+    &-second {
+      grid-area: widget-second;
+      color: skyblue;
+    }
+    &-third {
+      grid-area: widget-third;
+      color: goldenrod;
+    }
+    &-fourth {
+      grid-area: widget-fourth;
+      color: cyan;
     }
   }
 
@@ -123,11 +198,15 @@ const state = reactive({
       position: fixed;
       height: 3.2rem;
       width: 3.2rem;
-      right: 1.4rem;
-      top: 1.4rem;
-      @include standard-shadow(0.3rem, 0.3rem, 4rem);
-      background: $color-secondary--dark;
+      right: 0.8rem;
+      top: 1rem;
+      @include gradient-nice($color-secondary--dark, $color-secondary--darker, 40deg);
       z-index: 200;
+
+      @media (min-width: $screen-xsmall) {
+        top: 1.4rem;
+        right: 1.6rem;
+      }
 
       span {
         position: absolute;
@@ -164,15 +243,6 @@ const state = reactive({
     }
   }
 
-  &__logo {
-    height: 2rem;
-    will-change: filter;
-    transition: filter 300ms;
-    &:hover {
-      @include standard-shadow(0, 0, 2rem);
-    }
-  }
-
   &__disclaimer {
     color: $text-color--light;
   }
@@ -186,7 +256,7 @@ const state = reactive({
 .opacity-leave-from, .opacity-enter-to {
   opacity: 1;
 }
-.opacity-enter-active, .opacity-leave-active‚ {
+.opacity-enter-active, .opacity-leave-active {
   transition: opacity 0.6s;
 }
 
