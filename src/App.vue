@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard.vue'
 
 <template>
   <main>
-    <Dashboard name="Stranger" />
+    <Dashboard name="Manfred-Lucia" />
   </main>
 </template>
 
