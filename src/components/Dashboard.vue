@@ -15,23 +15,22 @@ const state = reactive({
   sidebarOpen: false,
 })
 
-const count = ref(0)
+// const count = ref(0)
+
 </script>
 
 <template>
   <div id="dashboard" class="dashboard">
     <div class="dashboard__content">
       <section class="dashboard__header">
-        <img src="../assets/icon_planet.svg" class="logo" alt="Planet logo" />
+        <img src="../assets/icon_planet.svg" class="dashboard__logo" alt="Planet logo" />
         <h1>Hi {{ name }}</h1>
       </section>
       <section class="dashboard__widget-area">
-        <!---div class="widget-dummy"></div>
-        <div class="widget-dummy"></div>
-        <div class="widget-dummy"></div--->
+          widgets will go here
       </section>
     </div>
-    <nav class="dashboard__navigation">
+    <nav class="dashboard__nav">
       <button 
         v-if="smallerDevice"
         class="dashboard__menu-button"
@@ -54,7 +53,7 @@ const count = ref(0)
     </p>
   </div--->
 
-  <!---p class="disclaimer">Disclaimer and info text style</p--->
+  <!---p class="dashboard__disclaimer">Disclaimer and info text style</p--->
 
 </template>
 
@@ -66,19 +65,19 @@ const count = ref(0)
 /* general dashboard sizing and layout: */
 
 .dashboard {
+  @include flex(column, space-between, space-between, $standard-gap);
   width: 100%;
   min-height: calc(100vh - ($standard-gap * 2));
   margin: auto;
-  @include flex(column, space-between, space-between, $standard-gap);
+  border-radius: 0.8rem;
 
   @media (min-width: $screen-small) {
     @include flex(row, center, space-between, $standard-gap);
     max-width: 1080px;
     width: 90vw;
     height: 90vh;
-    overflow: hidden;
     min-height: auto;
-    border-radius: 0.8rem;
+    overflow: hidden;
   }
 
   @media (min-width: $screen-medium) {
@@ -94,39 +93,26 @@ const count = ref(0)
   }
 
   &__header {
-    height: 4rem;
-    background: $color-secondary;
-    padding: 0.6rem 1.4rem;
     @include flex(row, flex-start, center, 1.3rem);
-    // border-radius: 0.8rem 0.8rem 0 0;
-
-    @media (min-width: $screen-small) {
-      // border-radius: 0.8rem 0 0 0;
-    }
+    height: 4rem;
+    padding: 0.6rem 1.4rem;
+    background: $color-secondary;
   }
 
   &__widget-area {
     background: $color-secondary;
     padding: 1rem;
-    // border-radius: 0 0 0.8rem 0.8rem;
     flex-grow: 1;
 
-    @media (min-width: $screen-small) {
-      // border-radius: 0 0 0 0.8rem;
-    }
-
-    .widget-dummy {
-      height: 18rem;
-      width: 18rem;
+    .dashboard__widget {
       border: 0.2rem solid $color-primary;
       border-radius: 0.8rem;
-      margin: 1rem auto;
     }
   }
 
   /* navigation: */
 
-  &__navigation {
+  &__nav {
     position: absolute;
 
     @media (min-width: $screen-small) {
@@ -137,19 +123,19 @@ const count = ref(0)
       position: fixed;
       height: 3.2rem;
       width: 3.2rem;
-      background: $color-secondary--dark;
       right: 1.4rem;
       top: 1.4rem;
       @include standard-shadow(0.3rem, 0.3rem, 4rem);
+      background: $color-secondary--dark;
       z-index: 200;
 
       span {
+        position: absolute;
+        content: '';
         width: 2.1rem;
         height: 0.3rem;
-        background: $color-light;
-        content: '';
-        position: absolute;
         left: 0.5rem;
+        background: $color-light;
         transform-origin: 50% 50%;
         transform: rotate(0deg);
         transition: all 0.6s;
@@ -163,6 +149,8 @@ const count = ref(0)
         }
       }
 
+      /* hamburger animation */
+
       &--open {
         span:nth-child(1) {
           top: 1.45rem;
@@ -172,26 +160,25 @@ const count = ref(0)
           bottom: 1.45rem;
           transform: rotate(135deg);
         }
-
       }
     }
   }
+
+  &__logo {
+    height: 2rem;
+    will-change: filter;
+    transition: filter 300ms;
+    &:hover {
+      @include standard-shadow(0, 0, 2rem);
+    }
+  }
+
+  &__disclaimer {
+    color: $text-color--light;
+  }
 }
 
-.logo {
-  height: 2rem;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  @include standard-shadow(0, 0, 2rem);
-}
-
-.disclaimer {
-  color: $text-color--light;
-}
-
-/* transitions: */
+/* transition classes: */
 
 .opacity-enter-from, .opacity-leave-to {
   opacity: 0;
