@@ -89,7 +89,7 @@ const hello = computed(() => {
   right: 0;
   bottom: 0;
   @include flex(column, center, center, 1rem);
-  background: $color-secondary--dark;
+  background: $color-secondary;
   color: $color-light;
   z-index: 100;
 
@@ -152,21 +152,22 @@ const hello = computed(() => {
     min-height: 2rem;
     margin: 0;
     color: $color-light;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 400;
+    text-transform: lowercase;
+    letter-spacing: 0.1rem;
     cursor: pointer;
 
   /* hover effects: */
 
     transition: all 0.3s;
     &:hover {
-      font-weight: 800;
+      font-weight: 600;
     }
   }
 
   a:hover {
     transform: translateX(0.2rem);
-    font-weight: 800;
+    font-weight: 600;
   }
 
   /* */

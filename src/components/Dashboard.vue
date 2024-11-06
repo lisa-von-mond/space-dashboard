@@ -111,14 +111,20 @@ const state = reactive({
   &__header {
     @include flex(row, flex-start, center, 1.3rem);
     height: 4rem;
-    padding: 0.6rem 1.4rem;
-    background: $color-secondary;
+    padding: 0.6rem 1rem;
+    background: $color-secondary--dark;
+    @media (min-width: $screen-xsmall) {
+      padding: 0.6rem 1.6rem;
+    }
+    @media (min-width: $screen-small) {
+      padding: 0.6rem 2.2rem;
+    }
   }
 
   /* widget-area */
 
   &__widget-area {
-    background: $color-secondary;
+    background: $color-secondary--dark;
     padding: $standard-gap;;
     flex-grow: 1;
 
@@ -135,10 +141,14 @@ const state = reactive({
     column-gap: $standard-gap;
     row-gap: $standard-gap;
 
-    @media (min-width: $screen-small) {
+    @media (min-width: $screen-xsmall) {
       column-gap: 1rem;
       row-gap: 1rem;
       padding: 1rem;
+    }
+
+    @media (min-width: $screen-small) {
+      padding: 2rem;
     }
 
     @media (min-width: $screen-xsmall) and (max-width: $screen-small-max), (min-width: $screen-medium) {
@@ -151,9 +161,10 @@ const state = reactive({
   }
 
   &__widget {
-    border: 0.2rem solid $color-primary;
+    border: 0.1rem solid $color-light;
     border-radius: 0.8rem;
-    font-size: 2rem;
+    font-size: 0.8rem;
+    padding: 1rem;
     text-transform: uppercase;
 
     &-first {
@@ -187,11 +198,16 @@ const state = reactive({
       position: fixed;
       height: 3.2rem;
       width: 3.2rem;
-      right: 1.4rem;
-      top: 1.4rem;
-      @include standard-shadow(0.3rem, 0.3rem, 4rem);
+      right: 0.8rem;
+      top: 1rem;
+      //@include standard-shadow(0.3rem, 0.3rem, 4rem);
       background: $color-secondary--dark;
       z-index: 200;
+
+      @media (min-width: $screen-xsmall) {
+        top: 1.4rem;
+        right: 1.6rem;
+      }
 
       span {
         position: absolute;
