@@ -3,12 +3,12 @@
 import { computed, reactive, onMounted } from 'vue'
 
 const getColor = computed(() => {
+
   const values = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
   let hexArray = ['#']
   const length = values.length
 
   var thisDate = new Date()
-  console.log(thisDate)
 
   var day = thisDate.getDay()
   var month = thisDate.getMonth()
@@ -19,15 +19,14 @@ const getColor = computed(() => {
 
   const array = [day, month, year, date, fullYear, random]
 
-array.forEach(el => {
-  let index = el % length
-  hexArray.push(values[index])
+  array.forEach(el => {
+    let index = el % length
+    hexArray.push(values[index])
+  })
+
+  return hexArray.join("")
 
 })
-
-return hexArray.join("")
-})
-
 
 </script>
 
@@ -35,12 +34,13 @@ return hexArray.join("")
 
 <div id="color" class="color">
   <h3>Color of the day</h3>
-  {{ getColor }}
-  <div class="moon__content">
-
+  <div class="color__content">
+    <p>{{ getColor }}</p>
+    <div 
+      class="color__circle"
+      :style="{'background': `${getColor}`}"></div>
   </div>
 </div>
-
 
 </template>
 
@@ -57,11 +57,17 @@ return hexArray.join("")
   }
 
   &__content {
-    @include flex(row, center, center, 1rem);
     flex-grow: 1;
-    @media (min-width: $screen-small) {
-      gap: 2rem
+    @include flex(row, center, center, 1rem);
+    p {
+      font-size: 1.4rem;
     }
+  }
+
+  &__circle {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
   }
 }
 
