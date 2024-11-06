@@ -19,17 +19,36 @@ const indexWarning = computed(() => {
     return ['#820964', 'very high']
   }
 })
+ 
+function getTodaysData() {
+  // fetch data from weather api
+  axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
+    .then(response => {
+      if(response) {
+          // get only air quality data:
+          state.data = response.data.current.air_quality
+        }
+    })
+    .catch(error => {console.log(error)})
 
-onMounted(() => {
-// fetch data from weather api
-axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
-  .then(response => {
-    if(response) {
-        // push only air quality data into data object
-        state.data = response.data.current.air_quality
+}
+
+function getTomorrowsData() {
+  // fetch data from weather api
+  axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124921240611&q=Berlin&days=2&aqi=yes&alerts=no')
+    .then(response => {
+      if(response) {
+        const currentHour = new Date().getHours()
+        // get only air quality data:
+        const data = response.data.forecast.forecastday[1].hour[currentHour].air_quality
+        state.data = data
       }
     })
     .catch(error => {console.log(error)})
+}
+
+onMounted(() => {
+  getTomorrowsData()
 })
 
 </script>
