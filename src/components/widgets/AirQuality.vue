@@ -1,10 +1,23 @@
 <script setup>
 
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, computed } from 'vue'
 import axios from 'axios'
 
 const state = reactive({
   data: null
+})
+
+const indexColor = computed(() => {
+  const index = state.data['gb-defra-index']
+  if (index < 4) {
+    return '#11e462';
+  } else if (index < 7) {
+    return '#dce615'
+  } else if (index < 9) {
+    return '#e41170'
+  } else {
+    return '#820964'
+  }
 })
 
 onMounted(() => {
@@ -35,7 +48,9 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       </div>
 
       <div class="airquality__section airquality__section-co">
-        <p>{{ state.data['gb-defra-index'] }}</p>
+        <p class="airquality__index" :style="{'color': `${indexColor}`}">
+          {{ state.data['gb-defra-index'] }}
+        </p>
         <hr>
         <p>DAQI</p>
       </div>
@@ -79,6 +94,10 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
     hr {
       border-top: 1.6px solid $color-light;
     }
+  }
+
+  &__index {
+    font-weight: 800;
   }
 
 }
