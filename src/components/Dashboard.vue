@@ -30,11 +30,11 @@ const state = reactive({
       </section>
       <section class="dashboard__widget-area">
         <Weather 
-          class="dashboard__widget dashboard__widget-first" />
-        <AirQuality 
-          class="dashboard__widget dashboard__widget-second" />
+          class="dashboard__widget dashboard__widget-weather" />
         <Color 
-          class="dashboard__widget dashboard__widget-third" />
+          class="dashboard__widget dashboard__widget-color" />
+        <AirQuality 
+          class="dashboard__widget dashboard__widget-air" />
         <div class="dashboard__widget dashboard__widget-fourth">
           <h3>fourth widget</h3>
         </div>
@@ -69,7 +69,7 @@ const state = reactive({
 
 </template>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 
 @import '../vars.scss';
 @import '../mixins.scss';
@@ -134,9 +134,9 @@ const state = reactive({
     grid-template-rows: auto auto auto auto;
     grid-template-columns: 1fr;
     grid-template-areas: 
-    "widget-first"
-    "widget-second"
-    "widget-third"
+    "widget-weather"
+    "widget-color"
+    "widget-air"
     "widget-fourth";
     column-gap: $standard-gap;
     row-gap: $standard-gap;
@@ -151,12 +151,12 @@ const state = reactive({
       padding: 2rem;
     }
 
-    @media (min-width: $screen-xsmall) and (max-width: $screen-small-max), (min-width: $screen-medium) {
+    @media (min-width: $screen-xsmall) {
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 
-      "widget-first widget-second"
-      "widget-third widget-fourth";
+      "widget-weather widget-color"
+      "widget-air widget-fourth";
     }
   }
 
@@ -164,21 +164,25 @@ const state = reactive({
     border: 0.1rem solid $color-light;
     border-radius: 0.8rem;
     font-size: 0.8rem;
-    padding: 1rem;
+    padding: 2rem 1rem;
     text-transform: uppercase;
 
-    &-first {
-      grid-area: widget-first;
+    &-weather {
+      grid-area: widget-weather;
     }
-    &-second {
-      grid-area: widget-second;
+    &-color {
+      grid-area: widget-color;
     }
-    &-third {
-      grid-area: widget-third;
+    &-air {
+      grid-area: widget-air;
     }
     &-fourth {
       grid-area: widget-fourth;
       color: cyan;
+    }
+
+    h3 {
+      color: $color-accent;
     }
   }
 

@@ -127,7 +127,6 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
         font-size: 1.2rem;
       }
-
     }
     .smaller-text {
       font-size: 0.6rem;
