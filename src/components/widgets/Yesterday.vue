@@ -7,37 +7,8 @@ const state = reactive({
   data: null
 })
 
-/* computed prop to get angle for full word of wind direction (e.g. 'northeast' 
-and angle for the arrow, corresponding to wind direction) */
-const windDirection = computed(() => {
-  let windDirection = state.data.wind_dir
-  const windDirectionToArray = windDirection.split("")
 
-  const translator = [
-    {letter: 'N', word: 'north', angle: 0},
-    {letter: 'E', word: 'east', angle: 90},
-    {letter: 'S', word: 'south', angle: 180},
-    {letter: 'W', word: 'west', angle: 270},
-  ]
-
-  /* loop through string and replace letters with full words */
-  for (let i = 0; i < translator.length; i++) {
-    windDirection = windDirection.replace(translator[i].letter, translator[i].word);
-  }
-
-  /* calculate angle by building sum and dividing by number of string elements */
-  let angle = 0
-  for (let i = 0; i < windDirectionToArray.length; i++) {
-    let a = translator.find(el => el.letter == windDirectionToArray[i]).angle
-    angle = angle + a
-  }
-  let finalAngle = angle/windDirectionToArray.length
-
-  /* return both values as object to have simple access */
-  return {direction: windDirection, angle: finalAngle}
-})
-
-function getTodaysData() {
+onMounted(() => {
 
 // fetch data from weather api
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
@@ -55,35 +26,6 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       }
     })
     .catch(error => {console.log(error)})
-
-}
-
-function getTomorrowsData() {
-
-// fetch data from weather api
-axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124921240611&q=Berlin&days=2&aqi=yes&alerts=no')
-  .then(response => {
-    if(response) {
-      // console.log(response.data)
-
-      // parameters needed for weather widget:
-      const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
-      const currentHour = new Date().getHours()
-      let responseData = response.data.forecast.forecastday[1].hour[currentHour]
-
-      let weatherData = {}
-      // push only relevant weather data into data object for widget component
-        params.forEach(el => weatherData[el] = responseData[el])
-        state.data = weatherData
-      }
-    })
-    .catch(error => {console.log(error)})
-
-}
-
-onMounted(() => {
-  getTodaysData()
-  // getTomorrowsData()
 })
 
 </script>
