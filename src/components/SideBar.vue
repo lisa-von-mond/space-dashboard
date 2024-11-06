@@ -45,8 +45,12 @@ const hello = computed(() => {
 <template>
 
 <div id="sidebar" class="sidebar">
-  <img src="../assets/icon_planet.svg" class="sidebar__logo" alt="Planet logo" />
-  <h2>{{ hello }}<br>{{ name }}</h2>
+  <div class="sidebar__intro">
+    <img src="../assets/icon_planet.svg" class="sidebar__logo" alt="Planet logo" />
+    <hr/>
+    <h2>{{ hello }}<br>{{ name }}</h2>
+    <hr/>
+  </div>
   <ul>
     <li v-for="(el,idx) in menuData">
       <!--- menu elements without submenu: -->
@@ -91,16 +95,36 @@ const hello = computed(() => {
 
   @media (min-width: $screen-small) {
     position: relative;
-    @include flex(column, flex-start, flex-start, 2rem);
+    @include flex(column, flex-start, flex-start, 1rem);
     height: 100%;
     width: 12rem;
-    padding: 2rem 1rem;
+    padding: 1rem;
   }
 
   /* upper part of sidebar */
 
+  &__intro {
+    @include flex(column, center, center, 0.4rem);
+    width: 100%;
+
+    hr {
+      width: 100%;
+      max-width: 6rem;
+      border-top: 0.3rem dotted $color-light;
+      border-bottom: none;
+      @media (min-width: $screen-small) {
+        max-width: 100%;
+      }
+    }
+
+    h2 {
+      padding: 0;
+    }
+  }
+
   &__logo {
-    height: 2.4rem;
+    height: 3rem;
+    margin: 1.4rem auto 1.2rem auto;
     will-change: filter;
     transition: filter 300ms;
     &:hover {
@@ -108,12 +132,6 @@ const hello = computed(() => {
     }
   }
 
-  h2 {
-    padding: 0;
-    @media (min-width: $screen-small) {
-      text-align: left;
-    }
-  }
   /* menu list and elements */
 
   ul {
@@ -124,6 +142,7 @@ const hello = computed(() => {
 
     @media (min-width: $screen-small) {
       @include flex(column, flex-start, flex-start);
+      margin-left: 1.6rem;
     }
   }
 
