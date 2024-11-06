@@ -54,10 +54,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       // push only relevant weather data into data array for widget component
         params.forEach(el => weatherData[el] = responseData[el])
         state.weatherData = weatherData
-        console.log(weatherData)
-        // push only air quality data into data array for widget component
-        // state.airQualityData = responseData.air_quality
-
+        // console.log(weatherData)
       }
     })
     .catch(error => {console.log(error)})
@@ -68,7 +65,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 <template>
 
   <div id="weather" class="weather" v-if="state.weatherData !== null">
-    <h3>Wetter Berlin</h3>
+    <h3>Weather Berlin</h3>
     <div class="weather__content">
 
       <div class="weather__section weather__section-warmth">
@@ -113,7 +110,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   @include flex(column, space-between, space-between, 1rem);
 
   h3 {
-      margin: 0;
+    margin: 0;
   }
 
   &__content {
