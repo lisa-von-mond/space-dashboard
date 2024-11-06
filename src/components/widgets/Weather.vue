@@ -138,34 +138,4 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
   }
 }
 
-/* hover areas and tooltips - may be moved to global level */
-
-.hover-area {
-  position: relative;
-  display: block;
-
-.tooltip {
-  position: absolute;
-  right: 2rem;
-  top: -1rem;
-  transform: translate(100%, 0%);
-  padding: 0.3rem;
-  border-radius: 0.2rem;
-  background: $color-secondary--dark;
-  color: $color-accent;
-  font-size: 0.8rem;
-  text-transform: lowercase;
-  white-space: nowrap;
-  letter-spacing: 0.2rem;
-  z-index: 120;
-  cursor: default;
-  transition: opacity 0.3s;
-  opacity: 0;
-}
-
-&:hover .tooltip{
-    opacity: 1;
-  }
-}
-
 </style>

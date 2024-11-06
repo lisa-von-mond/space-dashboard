@@ -7,16 +7,16 @@ const state = reactive({
   data: null
 })
 
-const indexColor = computed(() => {
+const indexWarning = computed(() => {
   const index = state.data['gb-defra-index']
   if (index < 4) {
-    return '#11e462';
+    return ['#11e462', 'low'];
   } else if (index < 7) {
-    return '#dce615'
+    return ['#dce615', 'moderate']
   } else if (index < 9) {
-    return '#e41170'
+    return ['#e41170', 'high']
   } else {
-    return '#820964'
+    return ['#820964', 'very high']
   }
 })
 
@@ -44,21 +44,33 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       <div class="airquality__section airquality__section-co">
         <p> {{ state.data.co.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
         <hr>
-        <p>CO</p>
+        <span class="hover-area">
+          <p>CO</p>
+          <div class="tooltip">carbon dioxide</div>
+        </span>
       </div>
 
       <div class="airquality__section airquality__section-co">
-        <p class="airquality__index" :style="{'color': `${indexColor}`}">
-          {{ state.data['gb-defra-index'] }}
-        </p>
+        <span class="hover-area">
+          <p class="airquality__index" :style="{'color': `${indexWarning[0]}`}">
+            {{ state.data['gb-defra-index'] }}
+          </p>
+          <div class="tooltip">{{ indexWarning[1] }}</div>
+        </span>
         <hr>
-        <p>DAQI</p>
+        <span class="hover-area">
+          <p>DAQI</p>
+          <div class="tooltip">daily air quality index</div>
+        </span>
       </div>
 
       <div class="airquality__section airquality__section-no">
         <p> {{ state.data.no2.toFixed(1) }}<span class="smaller-text"> µg/m</span></p>
         <hr>
-        <p>NO2</p>
+        <span class="hover-area">
+          <p>NO2</p>
+          <div class="tooltip">nitrogen dioxide</div>
+        </span>
       </div>
 
     </div>
@@ -85,7 +97,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 
   &__section {
     p {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       margin: 0;
     }
     .smaller-text {
