@@ -7,21 +7,34 @@ const state = reactive({
   weatherData: null
 })
 
+/* computed prop to get angle for full word of wind direction (e.g. 'northeast' 
+and angle for the arrow, corresponding to wind direction) */
 const windDirection = computed(() => {
   let windDirection = state.weatherData.wind_dir
+  const windDirectionToArray = windDirection.split("")
 
   const translator = [
-    {letter: 'N', word: 'north'},
-    {letter: 'S', word: 'south'},
-    {letter: 'W', word: 'west'},
-    {letter: 'E', word: 'east'}
+    {letter: 'N', word: 'north', angle: 0},
+    {letter: 'E', word: 'east', angle: 90},
+    {letter: 'S', word: 'south', angle: 180},
+    {letter: 'W', word: 'west', angle: 270},
   ]
 
+  /* loop through string and replace letters with full words */
   for (let i = 0; i < translator.length; i++) {
     windDirection = windDirection.replace(translator[i].letter, translator[i].word);
   }
 
-  return windDirection
+  /* calculate angle by building sum and dividing by number of string elements */
+  let angle = 0
+  for (let i = 0; i < windDirectionToArray.length; i++) {
+    let a = translator.find(el => el.letter == windDirectionToArray[i]).angle
+    angle = angle + a
+  }
+  let finalAngle = angle/windDirectionToArray.length
+
+  /* return both values as object to have simple access */
+  return {direction: windDirection, angle: finalAngle}
 })
 
 onMounted(() => {
@@ -44,7 +57,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
         console.log(weatherData)
         // push only air quality data into data array for widget component
         // state.airQualityData = responseData.air_quality
-
+        
       }
     })
     .catch(error => {console.log(error)})
@@ -68,7 +81,8 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       <div class="weather__section weather__section-wind">
         <p>{{ state.weatherData.wind_kph }} <span class="smaller-text">km/h</span></p>
         <hr>
-        <p>↑ {{ windDirection }}</p>
+        <p :style="{'transform': `rotate(${windDirection.angle}deg)`}">↑</p>
+        <p>{{ windDirection.direction }}</p>
       </div>
     </div>
   </div>
