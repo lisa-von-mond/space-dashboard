@@ -52,7 +52,7 @@ const hello = computed(() => {
     <hr/>
   </div>
   <ul>
-    <li v-for="(el,idx) in menuData">
+    <li v-for="el,idx in menuData">
       <!--- menu elements without submenu: -->
       <a v-if="el.submenu === false">{{ el.name }}</a>
       <!--- menu elements with submenu: -->
@@ -66,7 +66,7 @@ const hello = computed(() => {
         <div 
           class="sidebar__submenu"
           :style="{'height': state.submenu === idx ? `${el.submenu.length * 2}rem` : '0rem'}">
-              <a v-for="sub in el.submenu">{{ sub }}</a>
+              <a v-for="sub, index in el.submenu" :key="index">{{ sub }}</a>
         </div>
       </div>
     </li>
