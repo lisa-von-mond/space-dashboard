@@ -91,7 +91,7 @@ const hello = computed(() => {
   @include m.flex(column, center, center, v.$gap-large);
   @include m.gradient-nice(v.$color-secondary--light, v.$color-secondary, 45deg);
   color: v.$color-light;
-  z-index: 100;
+  z-index: 300;
 
   @media (min-width: v.$screen-small) {
     position: relative;

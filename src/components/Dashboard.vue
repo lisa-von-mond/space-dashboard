@@ -131,7 +131,7 @@ function switchDay() {
 
   &__header {
     @include m.flex(row, flex-start, center, 1.3rem);
-    height: 4rem;
+    height: 5rem;
     padding: 0.6rem 1rem;
     @include m.gradient-nice(v.$color-secondary, v.$color-secondary--dark, 135deg);
     @media (min-width: v.$screen-xsmall) {
@@ -139,6 +139,10 @@ function switchDay() {
     }
     @media (min-width: v.$screen-small) {
       padding: 0.6rem 2.2rem;
+      height: 4rem;
+    }
+    @media (min-width: v.$screen-medium) {
+      height: 5rem;
     }
   }
 
@@ -146,7 +150,7 @@ function switchDay() {
 
   &__widget-area {
     @include m.gradient-nice(v.$color-secondary, v.$color-secondary--dark, 45deg);
-    padding: v.$gap-small;
+    padding: 2rem v.$gap-small;
     flex-grow: 1;
 
     /* grid */
@@ -159,12 +163,10 @@ function switchDay() {
     "widget-color"
     "widget-air"
     "widget-tomorrow";
-    column-gap: v.$gap-small;
-    row-gap: v.$gap-small;
+    column-gap: v.$gap-large;
+    row-gap: v.$gap-large;
 
     @media (min-width: v.$screen-xsmall) {
-      column-gap: v.$gap-large;
-      row-gap: v.$gap-large;
       padding: v.$gap-large;
     }
 
@@ -218,7 +220,7 @@ function switchDay() {
       right: 0.8rem;
       top: 1rem;
       @include m.gradient-nice(v.$color-secondary--dark, v.$color-secondary--darker, 40deg);
-      z-index: 200;
+      z-index: 500;
 
       @media (min-width: v.$screen-xsmall) {
         top: 1.4rem;
@@ -229,9 +231,9 @@ function switchDay() {
         position: absolute;
         content: '';
         width: 2.1rem;
-        height: 0.3rem;
+        height: 0.2rem;
         left: 0.5rem;
-        background: v.$color-light;
+        background: v.$color-accent;
         transform-origin: 50% 50%;
         transform: rotate(0deg);
         transition: all 0.6s;
@@ -249,11 +251,11 @@ function switchDay() {
 
       &--open {
         span:nth-child(1) {
-          top: 1.45rem;
+          top: 1.5rem;
           transform: rotate(-135deg);
         }
         span:nth-child(2) {
-          bottom: 1.45rem;
+          bottom: 1.5rem;
           transform: rotate(135deg);
         }
       }
