@@ -97,19 +97,19 @@ function switchDay() {
 /* general dashboard sizing and layout: */
 
 .dashboard {
-  @include m.flex(column, space-between, space-between, v.$standard-gap);
+  @include m.flex(column, space-between, space-between, v.$gap-small);
   width: 100%;
   min-height: 100vh;
   margin: auto;
   overflow: hidden;
 
   @media (min-width: v.$screen-xsmall) {
-    min-height: calc(100vh - (v.$standard-gap * 2));
+    min-height: calc(100vh - (v.$gap-small * 2));
     border-radius: 0.8rem;
   }
 
   @media (min-width: v.$screen-small) {
-    @include m.flex(row, center, space-between, v.$standard-gap);
+    @include m.flex(row, center, space-between, v.$gap-small);
     max-width: 1080px;
     width: 90vw;
     height: 90vh;
@@ -124,7 +124,7 @@ function switchDay() {
   /* left / permanently visible part of dashboard: */
 
   &__content {
-    @include m.flex(column, space-between, space-between, v.$standard-gap);
+    @include m.flex(column, space-between, space-between, v.$gap-small);
     flex-grow: 1;
   }
 
@@ -145,7 +145,7 @@ function switchDay() {
 
   &__widget-area {
     @include m.gradient-nice(v.$color-secondary, v.$color-secondary--dark, 45deg);
-    padding: v.$standard-gap;;
+    padding: v.$gap-small;
     flex-grow: 1;
 
     /* grid */
@@ -158,17 +158,13 @@ function switchDay() {
     "widget-color"
     "widget-air"
     "widget-tomorrow";
-    column-gap: v.$standard-gap;
-    row-gap: v.$standard-gap;
+    column-gap: v.$gap-small;
+    row-gap: v.$gap-small;
 
     @media (min-width: v.$screen-xsmall) {
-      column-gap: 1rem;
-      row-gap: 1rem;
-      padding: 1rem;
-    }
-
-    @media (min-width: v.$screen-small) {
-      padding: 2rem;
+      column-gap: v.$gap-large;
+      row-gap: v.$gap-large;
+      padding: v.$gap-large;
     }
 
     @media (min-width: v.$screen-xsmall) {
@@ -184,7 +180,7 @@ function switchDay() {
     border: 0.1rem solid v.$color-light;
     border-radius: 0.8rem;
     font-size: 0.8rem;
-    padding: 1.4rem 1rem;
+    padding: 1.4rem v.$gap-large;
 
     &-weather {
       grid-area: widget-weather;

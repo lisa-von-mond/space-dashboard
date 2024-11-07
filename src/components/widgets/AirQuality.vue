@@ -110,7 +110,7 @@ onMounted(() => {
 @use '../../mixins.scss' as m;
 
 .airquality {
-  @include m.flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
     @include m.flex(column, center, center, 0.2rem);
@@ -118,7 +118,7 @@ onMounted(() => {
   }
 
   &__section {
-    @include m.flex(row, baseline, center, 1rem);
+    @include m.flex(row, baseline, center, v.$gap-large);
     p {
       font-size: 1.4rem;
       margin: 0;

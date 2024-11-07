@@ -35,7 +35,7 @@ watch(isTomorrow, () => {
 @use '../../mixins.scss' as m;
 
 .tomorrow {
-  @include m.flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
     @include m.flex(column, center, center, 2rem);

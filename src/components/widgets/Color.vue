@@ -62,7 +62,7 @@ const getColor = computed(() => {
 @use '../../mixins.scss' as m;
 
 .color {
-  @include m.flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
     flex-grow: 1;

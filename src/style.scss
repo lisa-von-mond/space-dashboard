@@ -32,7 +32,7 @@ body {
   padding: 0;
 
   @media (min-width: v.$screen-xsmall) {
-    padding: v.$standard-gap;
+    padding: v.$gap-small;
   }
 }
 

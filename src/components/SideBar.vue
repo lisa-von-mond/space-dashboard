@@ -88,17 +88,17 @@ const hello = computed(() => {
   top: 0;
   right: 0;
   bottom: 0;
-  @include m.flex(column, center, center, 1rem);
+  @include m.flex(column, center, center, v.$gap-large);
   @include m.gradient-nice(v.$color-secondary--light, v.$color-secondary, 45deg);
   color: v.$color-light;
   z-index: 100;
 
   @media (min-width: v.$screen-small) {
     position: relative;
-    @include m.flex(column, flex-start, flex-start, 1rem);
+    @include m.flex(column, flex-start, flex-start, v.$gap-large);
     height: 100%;
     width: 12rem;
-    padding: 1rem;
+    padding: v.$gap-large;
   }
 
   /* upper part of sidebar */

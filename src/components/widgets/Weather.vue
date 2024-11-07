@@ -144,10 +144,10 @@ onMounted(() => {
 @use '../../mixins.scss' as m;
 
 .weather {
-  @include m.flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
-    @include m.flex(row, center, center, 1rem);
+    @include m.flex(row, center, center, v.$gap-large);
     flex-grow: 1;
     @media (min-width: v.$screen-small) {
       gap: 2rem
