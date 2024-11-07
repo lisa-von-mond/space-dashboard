@@ -80,7 +80,7 @@ const hello = computed(() => {
 @use '../vars.scss' as v;
 @use '../mixins.scss' as m;
 
-/* sidebar general layout */
+/* sidebar general layout: */
 
 .sidebar {
   position: fixed;
@@ -101,7 +101,7 @@ const hello = computed(() => {
     padding: v.$gap-large;
   }
 
-  /* upper part of sidebar */
+  /* upper part of sidebar: */
 
   &__intro {
     @include m.flex(column, center, center, 0.4rem);
@@ -132,7 +132,7 @@ const hello = computed(() => {
     }
   }
 
-  /* menu list and elements */
+  /* menu list and elements: */
 
   ul {
     @include m.flex(column, center, center);
@@ -210,7 +210,7 @@ const hello = computed(() => {
     }
   }
 
-  /* submenu */
+  /* submenu: */
 
   &__submenu {
     

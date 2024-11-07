@@ -6,6 +6,7 @@ const props = defineProps({
   isTomorrow: Boolean,
 })
 
+// very random function to get a hex value out of current date properties
 const getColor = computed(() => {
 
   const values = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']

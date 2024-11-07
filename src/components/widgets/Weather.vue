@@ -32,7 +32,7 @@ const windDirection = computed(() => {
   }
   let finalAngle = angle/windDirectionToArray.length
 
-  /* get full word for wind direction - loop through string and replace letters with full words */
+  /* get full word for wind direction - loop through string and replace letters with words */
   for (let i = 0; i < windDirectionToArray.length; i++) {
     let translation = translator.find(el => el.letter === windDirectionToArray[i]).word
     windDirectionToArray[i] = translation
@@ -49,7 +49,7 @@ function getTodaysData() {
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
   .then(response => {
     if(response) {
-      // console.log("fetch weather today")
+      // console.log(response.data)
 
       // parameters needed for weather widget:
       const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
@@ -62,7 +62,6 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       }
     })
     .catch(error => {console.log(error)})
-
 }
 
 function getTomorrowsData() {
@@ -72,8 +71,8 @@ axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124
   .then(response => {
     if(response) {
       // console.log(response.data)
-      // console.log("fetch weather tomorrow")
-      // parameters needed for weather widget:
+
+      // parameters needed for weather widget / get data for day tomorrow, same time as now:
       const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
       const currentHour = new Date().getHours()
       let responseData = response.data.forecast.forecastday[1].hour[currentHour]
@@ -166,7 +165,7 @@ onMounted(() => {
       }
     }
     .smaller-text {
-      font-size: 0.6rem;
+      font-size: 0.8rem;
     }
     hr {
       border-top: 1.6px solid v.$color-light;

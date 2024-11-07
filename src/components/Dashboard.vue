@@ -11,14 +11,6 @@ import Tomorrow from './widgets/Tomorrow.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
-const airKey = ref(0);
-const weatherKey = ref(0);
-
-function forceRerender() {
-  airKey.value += 1;
-  weatherKey.value += 1;
-};
-
 const props = defineProps({
   name: String,
 })
@@ -28,12 +20,18 @@ const state = reactive({
   isTomorrow: false
 })
 
+const airKey = ref(0);
+const weatherKey = ref(0);
+// update keys on day change to re-render component:
+function forceRerender() {
+  airKey.value += 1;
+  weatherKey.value += 1;
+};
+
 function switchDay() {
   state.isTomorrow = !state.isTomorrow
   forceRerender()
 }
-
-// const count = ref(0)
 
 </script>
 
@@ -76,16 +74,6 @@ function switchDay() {
       </Transition>
     </nav>
   </div>
-
-  <!---div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div--->
-
-  <!---p class="dashboard__disclaimer">Disclaimer and info text style</p--->
 
 </template>
 
@@ -153,7 +141,7 @@ function switchDay() {
     padding: 2rem v.$gap-small;
     flex-grow: 1;
 
-    /* grid */
+    /* grid: */
 
     display: grid;
     grid-template-rows: auto auto auto auto;

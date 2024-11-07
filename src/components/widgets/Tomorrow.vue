@@ -17,7 +17,7 @@ watch(isTomorrow, () => {
 <div id="tomorrow" class="tomorrow">
   <h3>Don't like this day?</h3>
   <div class="tomorrow__content">
-    <p>What&nbsp;about<br>{{ isTomorrow == true ? 'today' : 'tomorrow' }} ?</p>
+    <p>What&nbsp;about<br>{{ isTomorrow == true ? 'today' : 'tomorrow' }}?&nbsp;=)</p>
     <label class="switch">
       <input type="checkbox" v-model="isTomorrow" :checked="true">
       <span class="slider"></span>

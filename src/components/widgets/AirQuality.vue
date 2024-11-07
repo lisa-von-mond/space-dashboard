@@ -11,6 +11,7 @@ const props = defineProps({
   isTomorrow: Boolean,
 })
 
+// get color and explanation according to air quality index
 const indexWarning = computed(() => {
   const index = state.data['gb-defra-index']
   if (index < 4) {
@@ -29,13 +30,12 @@ function getTodaysData() {
   axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
     .then(response => {
       if(response) {
-
+          // console.log(response.data)
           // get only air quality data:
           state.data = response.data.current.air_quality
         }
     })
     .catch(error => {console.log(error)})
-
 }
 
 function getTomorrowsData() {
@@ -43,9 +43,9 @@ function getTomorrowsData() {
   axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124921240611&q=Berlin&days=2&aqi=yes&alerts=no')
     .then(response => {
       if(response) {
-        // console.log("fetch air tomorrow")
+        // console.log(response.data)
         const currentHour = new Date().getHours()
-        // get only air quality data:
+        // get air quality data for tomorrow, same time as now
         const data = response.data.forecast.forecastday[1].hour[currentHour].air_quality
         state.data = data
       }
@@ -129,7 +129,7 @@ onMounted(() => {
       }
     }
     .smaller-text {
-      font-size: 0.6rem;
+      font-size: 0.8rem;
     }
   }
 
