@@ -20,25 +20,27 @@ const windDirection = computed(() => {
   const translator = [
     {letter: 'N', word: 'north', angle: 0},
     {letter: 'E', word: 'east', angle: 90},
-    {letter: 'S', word: 'south', angle: 180},
-    {letter: 'W', word: 'west', angle: 270},
+    {letter: 'S', word: 'south', angle: windDirectionToArray.some(x => x == 'E') ? 180 : -180},
+    {letter: 'W', word: 'west', angle: -90},
   ]
 
-  /* loop through string and replace letters with full words */
-  for (let i = 0; i < translator.length; i++) {
-    windDirection = windDirection.replace(translator[i].letter, translator[i].word);
-  }
-
   /* calculate angle by building sum and dividing by number of string elements */
-  let angle = 0
-  for (let i = 0; i < windDirectionToArray.length; i++) {
+    let angle = 0
+    for (let i = 0; i < windDirectionToArray.length; i++) {
     let a = translator.find(el => el.letter == windDirectionToArray[i]).angle
     angle = angle + a
   }
   let finalAngle = angle/windDirectionToArray.length
 
-  /* return both values as object to have simple access */
-  return {direction: windDirection, angle: finalAngle}
+  /* get full word for wind direction - loop through string and replace letters with words */
+  for (let i = 0; i < windDirectionToArray.length; i++) {
+    let translation = translator.find(el => el.letter === windDirectionToArray[i]).word
+    windDirectionToArray[i] = translation
+  }
+  let windDirectionAsWord = windDirectionToArray.join("")
+
+  /* return both values */
+  return {direction: windDirectionAsWord, angle: finalAngle}
 })
 
 function getTodaysData() {
@@ -47,7 +49,7 @@ function getTodaysData() {
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
   .then(response => {
     if(response) {
-      // console.log("fetch weather today")
+      // console.log(response.data)
 
       // parameters needed for weather widget:
       const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
@@ -60,7 +62,6 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       }
     })
     .catch(error => {console.log(error)})
-
 }
 
 function getTomorrowsData() {
@@ -70,8 +71,8 @@ axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124
   .then(response => {
     if(response) {
       // console.log(response.data)
-      // console.log("fetch weather tomorrow")
-      // parameters needed for weather widget:
+
+      // parameters needed for weather widget / get data for day tomorrow, same time as now:
       const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
       const currentHour = new Date().getHours()
       let responseData = response.data.forecast.forecastday[1].hour[currentHour]
@@ -93,8 +94,6 @@ onMounted(() => {
     getTodaysData()
   }
 })
-
-
 
 </script>
 
@@ -140,39 +139,43 @@ onMounted(() => {
 
 <style lang='scss' scoped>
 
-@import '../../vars.scss';
-@import '../../mixins.scss';
+@use '../../vars.scss' as v;
+@use '../../mixins.scss' as m;
 
 .weather {
-  @include flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
-    @include flex(row, center, center, 1rem);
+    @include m.flex(row, center, center, v.$gap-large);
     flex-grow: 1;
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-medium) {
       gap: 2rem
     }
   }
 
   &__section-warmth, &__section-wind {
+    width: 4rem;
     p {
       font-size: 1.4rem;
       margin: 0;
       white-space: nowrap;
       text-transform: uppercase;
-      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+      @media (min-width: v.$screen-small) and (max-width: v.$screen-medium-max) {
         font-size: 1.2rem;
       }
     }
     .smaller-text {
-      font-size: 0.6rem;
+      font-size: 0.8rem;
     }
     hr {
-      border-top: 1.6px solid $color-light;
+      border-top: 1.6px solid v.$color-light;
+      width: 2.6rem;
     }
   }
 
   &__section-condition {
+    width: 5rem;
+    @include m.flex(row, center, center);
     img {
       height: 5rem;
     }

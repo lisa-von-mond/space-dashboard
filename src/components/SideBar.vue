@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, reactive, computed } from 'vue'
+import { reactive, computed } from 'vue'
 
 const props = defineProps({
   name: String,
@@ -52,7 +52,7 @@ const hello = computed(() => {
     <hr/>
   </div>
   <ul>
-    <li v-for="(el,idx) in menuData">
+    <li v-for="el,idx in menuData">
       <!--- menu elements without submenu: -->
       <a v-if="el.submenu === false">{{ el.name }}</a>
       <!--- menu elements with submenu: -->
@@ -61,12 +61,12 @@ const hello = computed(() => {
           class="sidebar__menu-button"
           @click="handleMenu(idx)"
           :class="{'sidebar__menu-button--open': state.submenu === idx}">
-            {{ el.name }}
+            <span>{{ el.name }}</span>
         </button>
         <div 
           class="sidebar__submenu"
           :style="{'height': state.submenu === idx ? `${el.submenu.length * 2}rem` : '0rem'}">
-              <a v-for="sub in el.submenu">{{ sub }}</a>
+              <a v-for="sub, index in el.submenu" :key="index">{{ sub }}</a>
         </div>
       </div>
     </li>
@@ -77,10 +77,10 @@ const hello = computed(() => {
 
 <style lang='scss' scoped>
 
-@import '../vars.scss';
-@import '../mixins.scss';
+@use '../vars.scss' as v;
+@use '../mixins.scss' as m;
 
-/* sidebar general layout */
+/* sidebar general layout: */
 
 .sidebar {
   position: fixed;
@@ -88,31 +88,31 @@ const hello = computed(() => {
   top: 0;
   right: 0;
   bottom: 0;
-  @include flex(column, center, center, 1rem);
-  @include gradient-nice($color-secondary--light, $color-secondary, 45deg);
-  color: $color-light;
-  z-index: 100;
+  @include m.flex(column, center, center, v.$gap-large);
+  @include m.gradient-nice(v.$color-secondary--light, v.$color-secondary, 45deg);
+  color: v.$color-light;
+  z-index: 300;
 
-  @media (min-width: $screen-small) {
+  @media (min-width: v.$screen-small) {
     position: relative;
-    @include flex(column, flex-start, flex-start, 1rem);
+    @include m.flex(column, flex-start, flex-start, v.$gap-large);
     height: 100%;
     width: 12rem;
-    padding: 1rem;
+    padding: v.$gap-large;
   }
 
-  /* upper part of sidebar */
+  /* upper part of sidebar: */
 
   &__intro {
-    @include flex(column, center, center, 0.4rem);
+    @include m.flex(column, center, center, 0.4rem);
     width: 100%;
 
     hr {
       width: 100%;
       max-width: 6rem;
-      border-top: 0.3rem dotted $color-light;
+      border-top: 0.3rem dotted v.$color-light;
       border-bottom: none;
-      @media (min-width: $screen-small) {
+      @media (min-width: v.$screen-small) {
         max-width: 100%;
       }
     }
@@ -128,30 +128,30 @@ const hello = computed(() => {
     will-change: filter;
     transition: filter 300ms;
     &:hover {
-      @include standard-shadow(0, 0, 2rem);
+      @include m.standard-shadow(0, 0, 2rem);
     }
   }
 
-  /* menu list and elements */
+  /* menu list and elements: */
 
   ul {
-    @include flex(column, center, center);
+    @include m.flex(column, center, center);
     padding: 0;
     margin: 0;
     list-style-type: none;
 
-    @media (min-width: $screen-small) {
-      @include flex(column, flex-start, flex-start);
+    @media (min-width: v.$screen-small) {
+      @include m.flex(column, flex-start, flex-start);
       margin-left: 1.6rem;
     }
   }
 
   a, button {
-    @include flex(row, center, center);
+    @include m.flex(row, center, center);
     height: 100%;
     min-height: 2rem;
     margin: 0;
-    color: $color-light;
+    color: v.$color-light;
     font-weight: 400;
     text-transform: lowercase;
     letter-spacing: 0.1rem;
@@ -183,21 +183,43 @@ const hello = computed(() => {
       transition: transform 0.3s;
     }
 
-    &--open:after {
-      transform: rotate(180deg) translateY(-0.1rem);
+    span {
+      position: relative;
+      
+      &:before {
+        content: '';
+        border-bottom: 0.2rem dotted v.$color-accent;
+        position: absolute;
+        left: 50%;
+        bottom: -0.3rem;
+        width: 0%;
+        transform: translateX(-50%);
+        transition: width 0.3s;
+      }
+    }
+
+    &--open {
+      span:before {
+        width: 100%;
+      }
+
+      &:after {
+        transform: rotate(180deg) translateY(-0.2rem);
+        text-decoration: none !important;
+      }
     }
   }
 
-  /* submenu */
+  /* submenu: */
 
   &__submenu {
     
-    @include flex(column, center, center);
+    @include m.flex(column, center, center);
     overflow: hidden;
     transition: height 0.5s;
 
-    @media (min-width: $screen-small) {
-      @include flex(column, flex-start, flex-start);
+    @media (min-width: v.$screen-small) {
+      @include m.flex(column, flex-start, flex-start);
       padding-left: 1rem;
     }
   }

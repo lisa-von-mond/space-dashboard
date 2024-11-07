@@ -6,6 +6,7 @@ const props = defineProps({
   isTomorrow: Boolean,
 })
 
+// very random function to get a hex value out of current date properties
 const getColor = computed(() => {
 
   const values = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
@@ -23,10 +24,10 @@ const getColor = computed(() => {
   }
 
   let day = thisDate.getDay()
-  let month = thisDate.getMonth()
-  let year = thisDate.getYear()
-  let date = thisDate.getDate()
-  let fullYear = thisDate.getFullYear()
+  let month = thisDate.getMonth() * day
+  let year = thisDate.getYear() * day
+  let date = thisDate.getDate() * day
+  let fullYear = thisDate.getFullYear() * day
   let random = day * month * year * date * fullYear
 
   const params = [day, month, year, date, fullYear, random]
@@ -58,21 +59,21 @@ const getColor = computed(() => {
 
 <style lang='scss' scoped>
 
-@import '../../vars.scss';
-@import '../../mixins.scss';
+@use '../../vars.scss' as v;
+@use '../../mixins.scss' as m;
 
 .color {
-  @include flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
     flex-grow: 1;
-    @include flex(row, center, center, 2rem);
+    @include m.flex(row, center, center, 2rem);
     flex-wrap: wrap;
     p {
       font-size: 1.4rem;
       margin: 0;
       text-transform: uppercase;
-      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+      @media (min-width: v.$screen-small) and (max-width: v.$screen-medium-max) {
         font-size: 1.2rem;
       }
     }

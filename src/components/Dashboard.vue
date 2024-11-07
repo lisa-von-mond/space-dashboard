@@ -11,14 +11,6 @@ import Tomorrow from './widgets/Tomorrow.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
-const airKey = ref(0);
-const weatherKey = ref(0);
-
-function forceRerender() {
-  airKey.value += 1;
-  weatherKey.value += 1;
-};
-
 const props = defineProps({
   name: String,
 })
@@ -28,12 +20,18 @@ const state = reactive({
   isTomorrow: false
 })
 
+const airKey = ref(0);
+const weatherKey = ref(0);
+// update keys on day change to re-render component:
+function forceRerender() {
+  airKey.value += 1;
+  weatherKey.value += 1;
+};
+
 function switchDay() {
   state.isTomorrow = !state.isTomorrow
   forceRerender()
 }
-
-// const count = ref(0)
 
 </script>
 
@@ -77,46 +75,37 @@ function switchDay() {
     </nav>
   </div>
 
-  <!---div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div--->
-
-  <!---p class="dashboard__disclaimer">Disclaimer and info text style</p--->
-
 </template>
 
 <style lang='scss'>
 
-@import '../vars.scss';
-@import '../mixins.scss';
+@use '../vars.scss' as v;
+@use '../mixins.scss' as m;
 
 /* general dashboard sizing and layout: */
 
 .dashboard {
-  @include flex(column, space-between, space-between, $standard-gap);
+  @include m.flex(column, space-between, space-between, v.$gap-small);
   width: 100%;
   min-height: 100vh;
   margin: auto;
   overflow: hidden;
 
-  @media (min-width: $screen-xsmall) {
-    min-height: calc(100vh - ($standard-gap * 2));
+  @media (min-width: v.$screen-xsmall) {
+    min-height: calc(100vh - (v.$gap-small * 2));
     border-radius: 0.8rem;
   }
 
-  @media (min-width: $screen-small) {
-    @include flex(row, center, space-between, $standard-gap);
+  @media (min-width: v.$screen-small) {
+    @include m.flex(row, center, space-between, v.$gap-small);
     max-width: 1080px;
     width: 90vw;
     height: 90vh;
-    min-height: auto;
+    min-height: 600px;
+    max-height: 800px;
   }
 
-  @media (min-width: $screen-medium) {
+  @media (min-width: v.$screen-medium) {
     width: 80vw;
     height: 80vh;
   }
@@ -124,31 +113,35 @@ function switchDay() {
   /* left / permanently visible part of dashboard: */
 
   &__content {
-    @include flex(column, space-between, space-between, $standard-gap);
+    @include m.flex(column, space-between, space-between, v.$gap-small);
     flex-grow: 1;
   }
 
   &__header {
-    @include flex(row, flex-start, center, 1.3rem);
-    height: 4rem;
+    @include m.flex(row, flex-start, center, 1.3rem);
+    height: 5rem;
     padding: 0.6rem 1rem;
-    @include gradient-nice($color-secondary, $color-secondary--dark, 135deg);
-    @media (min-width: $screen-xsmall) {
+    @include m.gradient-nice(v.$color-secondary, v.$color-secondary--dark, 135deg);
+    @media (min-width: v.$screen-xsmall) {
       padding: 0.6rem 1.6rem;
     }
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-small) {
       padding: 0.6rem 2.2rem;
+      height: 4rem;
+    }
+    @media (min-width: v.$screen-medium) {
+      height: 5rem;
     }
   }
 
   /* widget-area */
 
   &__widget-area {
-    @include gradient-nice($color-secondary, $color-secondary--dark, 45deg);
-    padding: $standard-gap;;
+    @include m.gradient-nice(v.$color-secondary, v.$color-secondary--dark, 45deg);
+    padding: 2rem v.$gap-small;
     flex-grow: 1;
 
-    /* grid */
+    /* grid: */
 
     display: grid;
     grid-template-rows: auto auto auto auto;
@@ -158,20 +151,14 @@ function switchDay() {
     "widget-color"
     "widget-air"
     "widget-tomorrow";
-    column-gap: $standard-gap;
-    row-gap: $standard-gap;
+    column-gap: v.$gap-large;
+    row-gap: v.$gap-large;
 
-    @media (min-width: $screen-xsmall) {
-      column-gap: 1rem;
-      row-gap: 1rem;
-      padding: 1rem;
+    @media (min-width: v.$screen-xsmall) {
+      padding: v.$gap-large;
     }
 
-    @media (min-width: $screen-small) {
-      padding: 2rem;
-    }
-
-    @media (min-width: $screen-xsmall) {
+    @media (min-width: v.$screen-xsmall) {
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 
@@ -181,10 +168,10 @@ function switchDay() {
   }
 
   &__widget {
-    border: 0.1rem solid $color-light;
+    border: 0.2rem dotted v.$color-accent;
     border-radius: 0.8rem;
     font-size: 0.8rem;
-    padding: 1.4rem 1rem;
+    padding: 1.4rem v.$gap-large;
 
     &-weather {
       grid-area: widget-weather;
@@ -200,7 +187,7 @@ function switchDay() {
     }
 
     h3 {
-      color: $color-accent;
+      color: v.$color-accent;
       margin: 0;
     }
   }
@@ -210,7 +197,7 @@ function switchDay() {
   &__nav {
     position: absolute;
 
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-small) {
       position: relative;
     }
 
@@ -220,10 +207,10 @@ function switchDay() {
       width: 3.2rem;
       right: 0.8rem;
       top: 1rem;
-      @include gradient-nice($color-secondary--dark, $color-secondary--darker, 40deg);
-      z-index: 200;
+      @include m.gradient-nice(v.$color-secondary--dark, v.$color-secondary--darker, 40deg);
+      z-index: 500;
 
-      @media (min-width: $screen-xsmall) {
+      @media (min-width: v.$screen-xsmall) {
         top: 1.4rem;
         right: 1.6rem;
       }
@@ -232,9 +219,9 @@ function switchDay() {
         position: absolute;
         content: '';
         width: 2.1rem;
-        height: 0.3rem;
+        height: 0.2rem;
         left: 0.5rem;
-        background: $color-light;
+        background: v.$color-accent;
         transform-origin: 50% 50%;
         transform: rotate(0deg);
         transition: all 0.6s;
@@ -252,11 +239,11 @@ function switchDay() {
 
       &--open {
         span:nth-child(1) {
-          top: 1.45rem;
+          top: 1.5rem;
           transform: rotate(-135deg);
         }
         span:nth-child(2) {
-          bottom: 1.45rem;
+          bottom: 1.5rem;
           transform: rotate(135deg);
         }
       }
@@ -264,7 +251,7 @@ function switchDay() {
   }
 
   &__disclaimer {
-    color: $text-color--light;
+    color: v.$text-color--light;
   }
 }
 

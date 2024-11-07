@@ -11,6 +11,7 @@ const props = defineProps({
   isTomorrow: Boolean,
 })
 
+// get color and explanation according to air quality index
 const indexWarning = computed(() => {
   const index = state.data['gb-defra-index']
   if (index < 4) {
@@ -29,13 +30,12 @@ function getTodaysData() {
   axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
     .then(response => {
       if(response) {
-
+          // console.log(response.data)
           // get only air quality data:
           state.data = response.data.current.air_quality
         }
     })
     .catch(error => {console.log(error)})
-
 }
 
 function getTomorrowsData() {
@@ -43,9 +43,9 @@ function getTomorrowsData() {
   axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124921240611&q=Berlin&days=2&aqi=yes&alerts=no')
     .then(response => {
       if(response) {
-        // console.log("fetch air tomorrow")
+        // console.log(response.data)
         const currentHour = new Date().getHours()
-        // get only air quality data:
+        // get air quality data for tomorrow, same time as now
         const data = response.data.forecast.forecastday[1].hour[currentHour].air_quality
         state.data = data
       }
@@ -106,30 +106,30 @@ onMounted(() => {
 
 <style lang='scss' scoped>
 
-@import '../../vars.scss';
-@import '../../mixins.scss';
+@use '../../vars.scss' as v;
+@use '../../mixins.scss' as m;
 
 .airquality {
-  @include flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
-    @include flex(column, center, center, 0.2rem);
+    @include m.flex(column, center, center, 0.2rem);
     flex-grow: 1;
   }
 
   &__section {
-    @include flex(row, baseline, center, 1rem);
+    @include m.flex(row, baseline, center, v.$gap-large);
     p {
       font-size: 1.4rem;
       margin: 0;
       white-space: nowrap;
       text-transform: uppercase;
-      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+      @media (min-width: v.$screen-small) and (max-width: v.$screen-medium-max) {
         font-size: 1.2rem;
       }
     }
     .smaller-text {
-      font-size: 0.6rem;
+      font-size: 0.8rem;
     }
   }
 
