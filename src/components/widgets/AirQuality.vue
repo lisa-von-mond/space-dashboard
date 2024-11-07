@@ -29,7 +29,7 @@ function getTodaysData() {
   axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
     .then(response => {
       if(response) {
-        console.log("fetch air today")
+
           // get only air quality data:
           state.data = response.data.current.air_quality
         }
@@ -43,7 +43,7 @@ function getTomorrowsData() {
   axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124921240611&q=Berlin&days=2&aqi=yes&alerts=no')
     .then(response => {
       if(response) {
-        console.log("fetch air tomorrow")
+        // console.log("fetch air tomorrow")
         const currentHour = new Date().getHours()
         // get only air quality data:
         const data = response.data.forecast.forecastday[1].hour[currentHour].air_quality

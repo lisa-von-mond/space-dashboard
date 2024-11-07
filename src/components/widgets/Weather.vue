@@ -47,7 +47,7 @@ function getTodaysData() {
 axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
   .then(response => {
     if(response) {
-      console.log("fetch weather today")
+      // console.log("fetch weather today")
 
       // parameters needed for weather widget:
       const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
@@ -70,7 +70,7 @@ axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124
   .then(response => {
     if(response) {
       // console.log(response.data)
-      console.log("fetch weather tomorrow")
+      // console.log("fetch weather tomorrow")
       // parameters needed for weather widget:
       const params = ['condition', 'temp_c', 'feelslike_c', 'wind_kph', 'wind_dir']
       const currentHour = new Date().getHours()
@@ -87,7 +87,6 @@ axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124
 }
 
 onMounted(() => {
-  console.log('mounted')
   if (props.isTomorrow === true) {
     getTomorrowsData()
   } else {
