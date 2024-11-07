@@ -1,7 +1,7 @@
-@import './vars.scss';
+@use './vars.scss' as v;
 
 @mixin standard-shadow($top, $left, $blur) {
-    filter: drop-shadow($top $left $blur $color-primary--dark);
+    filter: drop-shadow($top $left $blur v.$color-primary--dark);
 }
 
 @mixin flex($direction, $justify: center, $align: center, $gap: 0) {

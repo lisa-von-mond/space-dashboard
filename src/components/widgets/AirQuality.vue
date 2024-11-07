@@ -106,25 +106,25 @@ onMounted(() => {
 
 <style lang='scss' scoped>
 
-@import '../../vars.scss';
-@import '../../mixins.scss';
+@use '../../vars.scss' as v;
+@use '../../mixins.scss' as m;
 
 .airquality {
-  @include flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, 1rem);
 
   &__content {
-    @include flex(column, center, center, 0.2rem);
+    @include m.flex(column, center, center, 0.2rem);
     flex-grow: 1;
   }
 
   &__section {
-    @include flex(row, baseline, center, 1rem);
+    @include m.flex(row, baseline, center, 1rem);
     p {
       font-size: 1.4rem;
       margin: 0;
       white-space: nowrap;
       text-transform: uppercase;
-      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+      @media (min-width: v.$screen-small) and (max-width: v.$screen-medium-max) {
         font-size: 1.2rem;
       }
     }

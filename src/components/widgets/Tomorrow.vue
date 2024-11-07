@@ -31,16 +31,16 @@ watch(isTomorrow, () => {
 
 <style lang='scss' scoped>
 
-@import '../../vars.scss';
-@import '../../mixins.scss';
+@use '../../vars.scss' as v;
+@use '../../mixins.scss' as m;
 
 .tomorrow {
-  @include flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, 1rem);
 
   &__content {
-    @include flex(column, center, center, 2rem);
+    @include m.flex(column, center, center, 2rem);
     flex-grow: 1;
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-small) {
       gap: 2rem
     }
     p {
@@ -73,7 +73,7 @@ watch(isTomorrow, () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $color-light;
+  background-color: v.$color-light;
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 34px;
@@ -86,25 +86,25 @@ watch(isTomorrow, () => {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: $color-secondary;;
+  background-color: v.$color-secondary;;
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: $color-light;
+  background-color: v.$color-light;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px $color-light;
+  box-shadow: 0 0 1px v.$color-light;
 }
 
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
-  background-color: $color-secondary--dark;
+  background-color: v.$color-secondary--dark;
 }
 
 </style>

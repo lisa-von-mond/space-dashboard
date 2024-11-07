@@ -58,21 +58,21 @@ const getColor = computed(() => {
 
 <style lang='scss' scoped>
 
-@import '../../vars.scss';
-@import '../../mixins.scss';
+@use '../../vars.scss' as v;
+@use '../../mixins.scss' as m;
 
 .color {
-  @include flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, 1rem);
 
   &__content {
     flex-grow: 1;
-    @include flex(row, center, center, 2rem);
+    @include m.flex(row, center, center, 2rem);
     flex-wrap: wrap;
     p {
       font-size: 1.4rem;
       margin: 0;
       text-transform: uppercase;
-      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+      @media (min-width: v.$screen-small) and (max-width: v.$screen-medium-max) {
         font-size: 1.2rem;
       }
     }

@@ -96,8 +96,6 @@ onMounted(() => {
   }
 })
 
-
-
 </script>
 
 <template>
@@ -142,16 +140,16 @@ onMounted(() => {
 
 <style lang='scss' scoped>
 
-@import '../../vars.scss';
-@import '../../mixins.scss';
+@use '../../vars.scss' as v;
+@use '../../mixins.scss' as m;
 
 .weather {
-  @include flex(column, space-between, space-between, 1rem);
+  @include m.flex(column, space-between, space-between, 1rem);
 
   &__content {
-    @include flex(row, center, center, 1rem);
+    @include m.flex(row, center, center, 1rem);
     flex-grow: 1;
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-small) {
       gap: 2rem
     }
   }
@@ -162,7 +160,7 @@ onMounted(() => {
       margin: 0;
       white-space: nowrap;
       text-transform: uppercase;
-      @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
+      @media (min-width: v.$screen-small) and (max-width: v.$screen-medium-max) {
         font-size: 1.2rem;
       }
     }
@@ -170,7 +168,7 @@ onMounted(() => {
       font-size: 0.6rem;
     }
     hr {
-      border-top: 1.6px solid $color-light;
+      border-top: 1.6px solid v.$color-light;
     }
   }
 

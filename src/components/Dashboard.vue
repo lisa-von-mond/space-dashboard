@@ -91,32 +91,32 @@ function switchDay() {
 
 <style lang='scss'>
 
-@import '../vars.scss';
-@import '../mixins.scss';
+@use '../vars.scss' as v;
+@use '../mixins.scss' as m;
 
 /* general dashboard sizing and layout: */
 
 .dashboard {
-  @include flex(column, space-between, space-between, $standard-gap);
+  @include m.flex(column, space-between, space-between, v.$standard-gap);
   width: 100%;
   min-height: 100vh;
   margin: auto;
   overflow: hidden;
 
-  @media (min-width: $screen-xsmall) {
-    min-height: calc(100vh - ($standard-gap * 2));
+  @media (min-width: v.$screen-xsmall) {
+    min-height: calc(100vh - (v.$standard-gap * 2));
     border-radius: 0.8rem;
   }
 
-  @media (min-width: $screen-small) {
-    @include flex(row, center, space-between, $standard-gap);
+  @media (min-width: v.$screen-small) {
+    @include m.flex(row, center, space-between, v.$standard-gap);
     max-width: 1080px;
     width: 90vw;
     height: 90vh;
     min-height: auto;
   }
 
-  @media (min-width: $screen-medium) {
+  @media (min-width: v.$screen-medium) {
     width: 80vw;
     height: 80vh;
   }
@@ -124,19 +124,19 @@ function switchDay() {
   /* left / permanently visible part of dashboard: */
 
   &__content {
-    @include flex(column, space-between, space-between, $standard-gap);
+    @include m.flex(column, space-between, space-between, v.$standard-gap);
     flex-grow: 1;
   }
 
   &__header {
-    @include flex(row, flex-start, center, 1.3rem);
+    @include m.flex(row, flex-start, center, 1.3rem);
     height: 4rem;
     padding: 0.6rem 1rem;
-    @include gradient-nice($color-secondary, $color-secondary--dark, 135deg);
-    @media (min-width: $screen-xsmall) {
+    @include m.gradient-nice(v.$color-secondary, v.$color-secondary--dark, 135deg);
+    @media (min-width: v.$screen-xsmall) {
       padding: 0.6rem 1.6rem;
     }
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-small) {
       padding: 0.6rem 2.2rem;
     }
   }
@@ -144,8 +144,8 @@ function switchDay() {
   /* widget-area */
 
   &__widget-area {
-    @include gradient-nice($color-secondary, $color-secondary--dark, 45deg);
-    padding: $standard-gap;;
+    @include m.gradient-nice(v.$color-secondary, v.$color-secondary--dark, 45deg);
+    padding: v.$standard-gap;;
     flex-grow: 1;
 
     /* grid */
@@ -158,20 +158,20 @@ function switchDay() {
     "widget-color"
     "widget-air"
     "widget-tomorrow";
-    column-gap: $standard-gap;
-    row-gap: $standard-gap;
+    column-gap: v.$standard-gap;
+    row-gap: v.$standard-gap;
 
-    @media (min-width: $screen-xsmall) {
+    @media (min-width: v.$screen-xsmall) {
       column-gap: 1rem;
       row-gap: 1rem;
       padding: 1rem;
     }
 
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-small) {
       padding: 2rem;
     }
 
-    @media (min-width: $screen-xsmall) {
+    @media (min-width: v.$screen-xsmall) {
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 
@@ -181,7 +181,7 @@ function switchDay() {
   }
 
   &__widget {
-    border: 0.1rem solid $color-light;
+    border: 0.1rem solid v.$color-light;
     border-radius: 0.8rem;
     font-size: 0.8rem;
     padding: 1.4rem 1rem;
@@ -200,7 +200,7 @@ function switchDay() {
     }
 
     h3 {
-      color: $color-accent;
+      color: v.$color-accent;
       margin: 0;
     }
   }
@@ -210,7 +210,7 @@ function switchDay() {
   &__nav {
     position: absolute;
 
-    @media (min-width: $screen-small) {
+    @media (min-width: v.$screen-small) {
       position: relative;
     }
 
@@ -220,10 +220,10 @@ function switchDay() {
       width: 3.2rem;
       right: 0.8rem;
       top: 1rem;
-      @include gradient-nice($color-secondary--dark, $color-secondary--darker, 40deg);
+      @include m.gradient-nice(v.$color-secondary--dark, v.$color-secondary--darker, 40deg);
       z-index: 200;
 
-      @media (min-width: $screen-xsmall) {
+      @media (min-width: v.$screen-xsmall) {
         top: 1.4rem;
         right: 1.6rem;
       }
@@ -234,7 +234,7 @@ function switchDay() {
         width: 2.1rem;
         height: 0.3rem;
         left: 0.5rem;
-        background: $color-light;
+        background: v.$color-light;
         transform-origin: 50% 50%;
         transform: rotate(0deg);
         transition: all 0.6s;
@@ -264,7 +264,7 @@ function switchDay() {
   }
 
   &__disclaimer {
-    color: $text-color--light;
+    color: v.$text-color--light;
   }
 }
 

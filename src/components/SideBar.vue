@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, reactive, computed } from 'vue'
+import { reactive, computed } from 'vue'
 
 const props = defineProps({
   name: String,
@@ -77,8 +77,8 @@ const hello = computed(() => {
 
 <style lang='scss' scoped>
 
-@import '../vars.scss';
-@import '../mixins.scss';
+@use '../vars.scss' as v;
+@use '../mixins.scss' as m;
 
 /* sidebar general layout */
 
@@ -88,14 +88,14 @@ const hello = computed(() => {
   top: 0;
   right: 0;
   bottom: 0;
-  @include flex(column, center, center, 1rem);
-  @include gradient-nice($color-secondary--light, $color-secondary, 45deg);
-  color: $color-light;
+  @include m.flex(column, center, center, 1rem);
+  @include m.gradient-nice(v.$color-secondary--light, v.$color-secondary, 45deg);
+  color: v.$color-light;
   z-index: 100;
 
-  @media (min-width: $screen-small) {
+  @media (min-width: v.$screen-small) {
     position: relative;
-    @include flex(column, flex-start, flex-start, 1rem);
+    @include m.flex(column, flex-start, flex-start, 1rem);
     height: 100%;
     width: 12rem;
     padding: 1rem;
@@ -104,15 +104,15 @@ const hello = computed(() => {
   /* upper part of sidebar */
 
   &__intro {
-    @include flex(column, center, center, 0.4rem);
+    @include m.flex(column, center, center, 0.4rem);
     width: 100%;
 
     hr {
       width: 100%;
       max-width: 6rem;
-      border-top: 0.3rem dotted $color-light;
+      border-top: 0.3rem dotted v.$color-light;
       border-bottom: none;
-      @media (min-width: $screen-small) {
+      @media (min-width: v.$screen-small) {
         max-width: 100%;
       }
     }
@@ -128,30 +128,30 @@ const hello = computed(() => {
     will-change: filter;
     transition: filter 300ms;
     &:hover {
-      @include standard-shadow(0, 0, 2rem);
+      @include m.standard-shadow(0, 0, 2rem);
     }
   }
 
   /* menu list and elements */
 
   ul {
-    @include flex(column, center, center);
+    @include m.flex(column, center, center);
     padding: 0;
     margin: 0;
     list-style-type: none;
 
-    @media (min-width: $screen-small) {
-      @include flex(column, flex-start, flex-start);
+    @media (min-width: v.$screen-small) {
+      @include m.flex(column, flex-start, flex-start);
       margin-left: 1.6rem;
     }
   }
 
   a, button {
-    @include flex(row, center, center);
+    @include m.flex(row, center, center);
     height: 100%;
     min-height: 2rem;
     margin: 0;
-    color: $color-light;
+    color: v.$color-light;
     font-weight: 400;
     text-transform: lowercase;
     letter-spacing: 0.1rem;
@@ -192,12 +192,12 @@ const hello = computed(() => {
 
   &__submenu {
     
-    @include flex(column, center, center);
+    @include m.flex(column, center, center);
     overflow: hidden;
     transition: height 0.5s;
 
-    @media (min-width: $screen-small) {
-      @include flex(column, flex-start, flex-start);
+    @media (min-width: v.$screen-small) {
+      @include m.flex(column, flex-start, flex-start);
       padding-left: 1rem;
     }
   }
