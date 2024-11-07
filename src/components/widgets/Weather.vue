@@ -149,12 +149,13 @@ onMounted(() => {
   &__content {
     @include m.flex(row, center, center, v.$gap-large);
     flex-grow: 1;
-    @media (min-width: v.$screen-small) {
+    @media (min-width: v.$screen-medium) {
       gap: 2rem
     }
   }
 
   &__section-warmth, &__section-wind {
+    width: 4rem;
     p {
       font-size: 1.4rem;
       margin: 0;
@@ -169,10 +170,13 @@ onMounted(() => {
     }
     hr {
       border-top: 1.6px solid v.$color-light;
+      width: 2.6rem;
     }
   }
 
   &__section-condition {
+    width: 5rem;
+    @include m.flex(row, center, center);
     img {
       height: 5rem;
     }
