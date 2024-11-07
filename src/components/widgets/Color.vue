@@ -23,10 +23,10 @@ const getColor = computed(() => {
   }
 
   let day = thisDate.getDay()
-  let month = thisDate.getMonth()
-  let year = thisDate.getYear()
-  let date = thisDate.getDate()
-  let fullYear = thisDate.getFullYear()
+  let month = thisDate.getMonth() * day
+  let year = thisDate.getYear() * day
+  let date = thisDate.getDate() * day
+  let fullYear = thisDate.getFullYear() * day
   let random = day * month * year * date * fullYear
 
   const params = [day, month, year, date, fullYear, random]
