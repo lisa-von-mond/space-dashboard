@@ -1,6 +1,10 @@
 <script setup>
 
-import { computed, reactive, onMounted } from 'vue'
+import { computed, defineProps } from 'vue'
+
+const props = defineProps({
+  isTomorrow: Boolean,
+})
 
 const getColor = computed(() => {
 
@@ -8,18 +12,26 @@ const getColor = computed(() => {
   let hexArray = ['#']
   const length = values.length
 
-  var thisDate = new Date()
+  let today = new Date()
+  let todayMs = today.getTime()
+  let tomorrowMs = todayMs + (1000 * 60 * 60 * 24)
+  let tomorrow = new Date(tomorrowMs)
 
-  var day = thisDate.getDay()
-  var month = thisDate.getMonth()
-  var year = thisDate.getYear()
-  var date = thisDate.getDate()
-  var fullYear = thisDate.getFullYear()
-  var random = month * date
+  let thisDate = today
+  if (props.isTomorrow === true) {
+    thisDate = tomorrow
+  }
 
-  const array = [day, month, year, date, fullYear, random]
+  let day = thisDate.getDay()
+  let month = thisDate.getMonth()
+  let year = thisDate.getYear()
+  let date = thisDate.getDate()
+  let fullYear = thisDate.getFullYear()
+  let random = day * month * year * date * fullYear
 
-  array.forEach(el => {
+  const params = [day, month, year, date, fullYear, random]
+
+  params.forEach(el => {
     let index = el % length
     hexArray.push(values[index])
   })

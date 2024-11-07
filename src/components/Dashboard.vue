@@ -49,7 +49,8 @@ function switchDay() {
           :isTomorrow = state.isTomorrow 
           :key="weatherKey" />
         <Color 
-          class="dashboard__widget dashboard__widget-color" />
+          class="dashboard__widget dashboard__widget-color" 
+          :isTomorrow = state.isTomorrow />
         <AirQuality 
           class="dashboard__widget dashboard__widget-air" 
           :isTomorrow = state.isTomorrow 
