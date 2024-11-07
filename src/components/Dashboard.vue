@@ -41,7 +41,7 @@ function switchDay() {
   <div id="dashboard" class="dashboard">
     <div class="dashboard__content">
       <section class="dashboard__header">
-        <h1>Today is the day!</h1>
+        <h1>{{ state.isTomorrow ? 'Tomorrow' : 'Today' }} is the day!</h1>
       </section>
       <section class="dashboard__widget-area">
         <Weather 
@@ -184,7 +184,6 @@ function switchDay() {
     border-radius: 0.8rem;
     font-size: 0.8rem;
     padding: 1.4rem 1rem;
-    text-transform: uppercase;
 
     &-weather {
       grid-area: widget-weather;

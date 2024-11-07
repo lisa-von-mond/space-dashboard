@@ -160,6 +160,7 @@ onMounted(() => {
       font-size: 1.4rem;
       margin: 0;
       white-space: nowrap;
+      text-transform: uppercase;
       @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
         font-size: 1.2rem;
       }

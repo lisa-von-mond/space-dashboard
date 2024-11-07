@@ -17,12 +17,11 @@ watch(isTomorrow, () => {
 <div id="tomorrow" class="tomorrow">
   <h3>Don't like this day?</h3>
   <div class="tomorrow__content">
-    <p>what about tomorrow?</p>
+    <p>What&nbsp;about<br>{{ isTomorrow == true ? 'today' : 'tomorrow' }} ?</p>
     <label class="switch">
       <input type="checkbox" v-model="isTomorrow" :checked="true">
-      <span class="slider round"></span>
+      <span class="slider"></span>
     </label>
-    <p>[ {{ isTomorrow == true ? 'tomorrow' : 'today'}} ]</p>
   </div>
 
 </div>
@@ -39,13 +38,15 @@ watch(isTomorrow, () => {
   @include flex(column, space-between, space-between, 1rem);
 
   &__content {
-    @include flex(column, center, center, 1rem);
+    @include flex(column, center, center, 2rem);
     flex-grow: 1;
     @media (min-width: $screen-small) {
       gap: 2rem
     }
     p {
-      font-size: 0.8rem;
+      font-size: 1rem;
+      letter-spacing: 0.3rem;
+      max-height: 2rem;
     }
   }
 }
@@ -72,9 +73,10 @@ watch(isTomorrow, () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: $color-light;
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 34px;
 }
 
 .slider:before {
@@ -84,32 +86,25 @@ watch(isTomorrow, () => {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: $color-secondary;;
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: $color-light;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px $color-light;
 }
 
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+  background-color: $color-secondary--dark;
 }
 
 </style>
