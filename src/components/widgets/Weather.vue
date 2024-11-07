@@ -25,20 +25,22 @@ const windDirection = computed(() => {
   ]
 
   /* loop through string and replace letters with full words */
-  for (let i = 0; i < translator.length; i++) {
-    windDirection = windDirection.replace(translator[i].letter, translator[i].word);
+  for (let i = 0; i < windDirectionToArray.length; i++) {
+    let translation = translator.find(el => el.letter === windDirectionToArray[i]).word
+    windDirectionToArray[i] = translation
   }
+  let windDirectionAsWord = windDirectionToArray.join("")
 
   /* calculate angle by building sum and dividing by number of string elements */
-  let angle = 0
-  for (let i = 0; i < windDirectionToArray.length; i++) {
-    let a = translator.find(el => el.letter == windDirectionToArray[i]).angle
-    angle = angle + a
-  }
-  let finalAngle = angle/windDirectionToArray.length
+  // let angle = 0
+  // for (let i = 0; i < windDirectionToArray.length; i++) {
+  //   let a = translator.find(el => el.letter == windDirectionToArray[i]).angle
+  //   angle = angle + a
+  // }
+  // let finalAngle = angle/windDirectionToArray.length
 
   /* return both values as object to have simple access */
-  return {direction: windDirection, angle: finalAngle}
+  return {direction: windDirectionAsWord, angle: 120}
 })
 
 function getTodaysData() {
