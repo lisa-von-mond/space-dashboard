@@ -1,19 +1,28 @@
 <script setup>
 
-import { computed, reactive, onMounted } from 'vue'
+import { ref, watch } from 'vue'
+
+const emit = defineEmits(['switchday'])
+
+const isTomorrow = ref(null)
+
+watch(isTomorrow, () => {
+    emit('switchday')
+})
 
 </script>
 
 <template>
 
 <div id="tomorrow" class="tomorrow">
-  <h3>Don't like today?</h3>
+  <h3>Don't like this day?</h3>
   <div class="tomorrow__content">
     <p>what about tomorrow?</p>
     <label class="switch">
-      <input type="checkbox">
+      <input type="checkbox" v-model="isTomorrow" :checked="true">
       <span class="slider round"></span>
     </label>
+    <p>[ {{ isTomorrow == true ? 'tomorrow' : 'today'}} ]</p>
   </div>
 
 </div>

@@ -1,6 +1,6 @@
 <script setup>
 
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 
 import SideBar from './SideBar.vue';
@@ -11,13 +11,27 @@ import Tomorrow from './widgets/Tomorrow.vue';
 
 const smallerDevice = useMediaQuery('(max-width: 768px)')
 
+const airKey = ref(0);
+const weatherKey = ref(0);
+
+function forceRerender() {
+  airKey.value += 1;
+  weatherKey.value += 1;
+};
+
 const props = defineProps({
   name: String,
 })
 
 const state = reactive({
   sidebarOpen: false,
+  isTomorrow: false
 })
+
+function switchDay() {
+  state.isTomorrow = !state.isTomorrow
+  forceRerender()
+}
 
 // const count = ref(0)
 
@@ -31,13 +45,18 @@ const state = reactive({
       </section>
       <section class="dashboard__widget-area">
         <Weather 
-          class="dashboard__widget dashboard__widget-weather" />
+          class="dashboard__widget dashboard__widget-weather" 
+          :isTomorrow = state.isTomorrow 
+          :key="weatherKey" />
         <Color 
           class="dashboard__widget dashboard__widget-color" />
         <AirQuality 
-          class="dashboard__widget dashboard__widget-air" />
+          class="dashboard__widget dashboard__widget-air" 
+          :isTomorrow = state.isTomorrow 
+          :key="airKey"/>
         <Tomorrow 
-          class="dashboard__widget dashboard__widget-tomorrow" />
+          class="dashboard__widget dashboard__widget-tomorrow"
+          @switchday="switchDay()"/>
       </section>
     </div>
     <nav class="dashboard__nav">
