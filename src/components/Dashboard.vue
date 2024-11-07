@@ -113,7 +113,8 @@ function switchDay() {
     max-width: 1080px;
     width: 90vw;
     height: 90vh;
-    min-height: auto;
+    min-height: 600px;
+    max-height: 800px;
   }
 
   @media (min-width: v.$screen-medium) {
@@ -177,7 +178,7 @@ function switchDay() {
   }
 
   &__widget {
-    border: 0.1rem solid v.$color-light;
+    border: 0.2rem dotted v.$color-accent;
     border-radius: 0.8rem;
     font-size: 0.8rem;
     padding: 1.4rem v.$gap-large;

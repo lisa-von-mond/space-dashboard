@@ -38,7 +38,7 @@ watch(isTomorrow, () => {
   @include m.flex(column, space-between, space-between, v.$gap-large);
 
   &__content {
-    @include m.flex(column, center, center, 2rem);
+    @include m.flex(column, center, center, 3rem);
     flex-grow: 1;
     @media (min-width: v.$screen-small) {
       gap: 2rem
@@ -47,6 +47,7 @@ watch(isTomorrow, () => {
       font-size: 1rem;
       letter-spacing: 0.3rem;
       max-height: 2rem;
+      margin: 0;
     }
   }
 }

@@ -61,7 +61,7 @@ const hello = computed(() => {
           class="sidebar__menu-button"
           @click="handleMenu(idx)"
           :class="{'sidebar__menu-button--open': state.submenu === idx}">
-            {{ el.name }}
+            <span>{{ el.name }}</span>
         </button>
         <div 
           class="sidebar__submenu"
@@ -183,8 +183,30 @@ const hello = computed(() => {
       transition: transform 0.3s;
     }
 
-    &--open:after {
-      transform: rotate(180deg) translateY(-0.1rem);
+    span {
+      position: relative;
+      
+      &:before {
+        content: '';
+        border-bottom: 0.2rem dotted v.$color-accent;
+        position: absolute;
+        left: 50%;
+        bottom: -0.3rem;
+        width: 0%;
+        transform: translateX(-50%);
+        transition: width 0.3s;
+      }
+    }
+
+    &--open {
+      span:before {
+        width: 100%;
+      }
+
+      &:after {
+        transform: rotate(180deg) translateY(-0.2rem);
+        text-decoration: none !important;
+      }
     }
   }
 

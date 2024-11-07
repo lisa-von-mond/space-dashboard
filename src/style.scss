@@ -15,6 +15,10 @@
   background: v.$color-light;
 }
 
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 body {
   @include m.gradient-light;
   color: v.$color-light;
@@ -56,6 +60,7 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   font-weight: 600;
+  color: v.$color-accent;
   @media (min-width: v.$screen-xsmall) {
     font-size: 1.2rem;
     letter-spacing: 0.3rem;
