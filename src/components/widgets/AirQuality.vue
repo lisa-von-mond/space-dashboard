@@ -1,10 +1,14 @@
 <script setup>
 
-import { reactive, onMounted, computed } from 'vue'
+import { reactive, defineProps, onMounted, computed } from 'vue'
 import axios from 'axios'
 
 const state = reactive({
   data: null
+})
+
+const props = defineProps({
+  isTomorrow: Boolean,
 })
 
 const indexWarning = computed(() => {
@@ -19,18 +23,42 @@ const indexWarning = computed(() => {
     return ['#820964', 'very high']
   }
 })
+ 
+function getTodaysData() {
+  // fetch data from weather api
+  axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
+    .then(response => {
+      if(response) {
 
-onMounted(() => {
-// fetch data from weather api
-axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc124921240611&q=Berlin&aqi=yes')
-  .then(response => {
-    console.log(response.data)
-    if(response) {
-        // push only air quality data into data object
-        state.data = response.data.current.air_quality
+          // get only air quality data:
+          state.data = response.data.current.air_quality
+        }
+    })
+    .catch(error => {console.log(error)})
+
+}
+
+function getTomorrowsData() {
+  // fetch data from weather api
+  axios.get('http://api.weatherapi.com/v1/forecast.json?key=efb8776062704d21bcc124921240611&q=Berlin&days=2&aqi=yes&alerts=no')
+    .then(response => {
+      if(response) {
+        // console.log("fetch air tomorrow")
+        const currentHour = new Date().getHours()
+        // get only air quality data:
+        const data = response.data.forecast.forecastday[1].hour[currentHour].air_quality
+        state.data = data
       }
     })
     .catch(error => {console.log(error)})
+}
+
+onMounted(() => {
+  if (props.isTomorrow === true) {
+    getTomorrowsData()
+  } else {
+    getTodaysData()
+  }
 })
 
 </script>
@@ -84,10 +112,6 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
 .airquality {
   @include flex(column, space-between, space-between, 1rem);
 
-  h3 {
-    margin: 0;
-  }
-
   &__content {
     @include flex(column, center, center, 0.2rem);
     flex-grow: 1;
@@ -99,6 +123,7 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=efb8776062704d21bcc1249
       font-size: 1.4rem;
       margin: 0;
       white-space: nowrap;
+      text-transform: uppercase;
       @media (min-width: $screen-small) and (max-width: $screen-medium-max) {
         font-size: 1.2rem;
       }
